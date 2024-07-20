@@ -20,6 +20,7 @@ Pull requests editing code will not be accepted. However, if you want to make a 
     - `/members/public/` - Frontend Site (HTML, JS)
     - `/members/private/` - Backend (Python)
 - `/helper/` - AI Powerered Discord Chat Bot ([README](https://github.com/itschasa/luxury/blob/main/helper/README.md))
+- [Reseller Bot](https://github.com/itschasa/LuxuryNitro-Reseller) - "Discord Bot used to resell credits from luxurynitro, using it's API."
 
 The `/gallery/` folder contains images of the different projects in action.
 

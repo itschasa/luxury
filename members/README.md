@@ -30,7 +30,7 @@ Wrappers are used on requests that require auth, instead of pasting functions at
 ### Oauth-ing with Discord
 Members were added to servers using the "Join Servers for You" permission on Discord. This means that the whole process contains **zero hCaptchas**, making it a whole lot more reliable.
 
-Code wise, it uses a lot of classes. Take a look at the `Token` class in `oauth/token.py` if you're curious. It's quite big.
+Code wise, it uses a lot of classes. Take a look at the [`Token` class in `oauth/token.py`](https://github.com/itschasa/luxury/blob/main/members/private/oauth/token.py#L57) if you're curious. It's quite big.
 
 It's well known now that you need a clean TLS handshake if you want to selfbot on Discord. `oauth/http.py` deals with that, by making a different client for each token (so they each have a random order of extensions).
 

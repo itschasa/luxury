@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Discord Mods :skull: | LuxuryNitro - Members + Boosting</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <style>
+        input {
+            background-color: rgba(0,0,0,0)!important;
+            color: #fff!important;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            overflow: hidden; /* Hide vertical scrollbar */
+        }
+
+        .container-fluid {
+            overflow: hidden; /* Hide vertical scrollbar */
+        }
+
+        .sidebar {
+            background-color: #0f0f0f;
+            color: #fff;
+            height: 100vh;
+            width: 200px; /* Adjusted width */
+            overflow-y: auto; /* Add vertical scrollbar only to sidebar */
+            position: fixed;
+            top: 56px;
+        }
+
+        .sidebar a {
+            color: #fff !important; /* Set link color to white */
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            display: block;
+            margin-bottom: 5px; /* Adjusted margin-bottom */
+        }
+
+        .sidebar a:hover {
+            background-color: #555;
+        }
+
+        .navbar {
+            background-color: #131212;
+            color: #fff;
+        }
+
+        .navbar a {
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #181818;
+        }
+
+        .content {
+            margin-top: 20px;
+            margin-left: 220px; /* Adjusted margin-left to accommodate sidebar */
+        }
+
+        /* New Styles for Boxes */
+        .dashboard-box {
+            flex-direction: row;
+            justify-content: space-between;
+            background: linear-gradient(to right, #1e1129, #2c0a53);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #0e021a;
+            margin-left: 0; /* Adjusted margin-left for the boxes */
+            height: 100%
+        }
+
+        .activity-box {
+            flex-direction: row;
+            justify-content: space-between;
+            background: linear-gradient(to right, #020202, #050505);
+            color: #fff;
+            padding: 20px;
+            padding-left: 15px;
+            border-radius: 10px;
+            margin-left: 0; /* Adjusted margin-left for the boxes */
+            height: 100%
+        }
+
+        /* Adjusted margin-top for the Dashboard item in the sidebar */
+        .sidebar .nav-item:first-child {
+            margin-top: 20px;
+        }
+
+        /* Additional Content Styles */
+        .additional-content {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            margin-left: 0px; /* Adjusted margin-left to match the content area */
+        }
+
+        /* Table Styles */
+        .table-responsive {
+            margin-bottom: 15px;
+        }
+
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .table th,
+        .table td {
+            padding: 0.5rem;
+            vertical-align: top;
+            border: none; /* Remove borders */
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border: none; /* Remove borders */
+        }
+
+        .table tbody + tbody {
+            border-top: none; /* Remove borders */
+        }
+
+        /* Navigation Buttons Styles */
+        .d-flex {
+            display: flex !important;
+        }
+
+        .justify-content-between {
+            justify-content: space-between !important;
+        }
+
+        .btn-outline-secondary {
+            color: #fff;
+            background-color: transparent;
+            background-image: none;
+            border-color: linear-gradient(to right, #4CAF50, #2E8B57);
+        }
+
+        .btn-outline-secondary:hover {
+            color: #333;
+            background-color: linear-gradient(to right, #4CAF50, #2E8B57);
+            border-color: linear-gradient(to right, #4CAF50, #2E8B57);
+        }
+
+        .icon {
+            font-size: 25px;
+        }
+
+        .icon-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background-color: transparent;
+            width: 50px;
+            height: 50px;
+            border: white 2px solid;
+        }
+
+        @keyframes pulseBig {
+            0% {
+                opacity: 0.5
+            }
+            80% {
+                opacity: 0;
+                transform: scale(2.5)
+            }
+            100% {
+                opacity: 0
+            }
+        }
+
+        .animate-dot {
+            transform: none;
+        }
+
+        .animate-dot:after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: currentColor;
+            animation: pulseBig 1.2s 1;
+            opacity: 1;
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+        }
+        
+        .pulse-dot {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            border-radius: 50%;
+            color: #3bd671;
+            background: #3bd671;
+            position: relative;
+            -ms-transform: none;
+            transform: none;
+        }
+
+        .purple {
+            color: rgb(198, 77, 209)
+        }
+        .purple2 {
+            color: rgb(241, 158, 248)
+        }
+
+        .row-striped:nth-of-type(odd){
+            background-color: #0f0f0f;
+        }
+
+        .text-primary {
+            color: rgb(120, 52, 184)!important;
+        }
+
+    </style>
+</head>
+<body style="overflow-y: scroll;">
+
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center">     
+            <!-- Main Content -->
+            <main role="main" class="col-xl-10 col-12 px-xl-5 px-3">
+                <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+                    <a class="navbar-brand">LuxuryNitro - Members + Boosting</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../create_order">Create Order</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../settings">Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://discord.luxurynitro.com" target="_blank">Discord</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../logout">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="additional-content mt-5 pt-5">
+                    
+                    <div class="row">
+                        <div class="col-md-6 col-12 mb-4">
+                            <h2>C2</h2>
+                            <div style="height: 50vh; width: 100%; overflow-y: scroll; background-color: rgb(17, 17, 17);">
+                                <div style="margin: 7px" id="chatbox"></div>
+                            </div>
+                            
+                            <span class="input-group w-100">
+                                <input id='message-box' value="/help" type="text" class="flex-fill align-middle" style="background-color: rgba(0,0,0,0); color: #fff;" placeholder="/help">
+                                <a onclick='sendMessage()' class="btn btn-primary align-middle bd-highlight">
+                                    <i class="fa-solid fa-paper-plane" style="height: 14px; width: 14px;"></i>
+                                </a>
+                            </span>
+                        </div>
+
+                        <div class="col-md-6 col-12 mb-4">
+                            <h2>Live Logs</h2>
+                            <div id='livelogsboxscroll' style="height: 50vh; width: 100%; overflow-y: scroll; background-color: rgb(17, 17, 17);">
+                                <div style="margin: 7px">
+                                    <p id="livelogsbox"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <h2>Past Logs</h2>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div style="height: 50vh; width: 100%; overflow-y: scroll; background-color: rgb(17, 17, 17);">
+                                        <div style="margin: 7px" id="pastlogslist"></div>
+                                    </div>
+                                </div>
+                                <div class="col-9">
+                                    <div style="height: 50vh; width: 100%; overflow-y: scroll; background-color: rgb(17, 17, 17);">
+                                        <div style="margin: 7px" id="pastlogsbox"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <h2>Tokens</h2>
+                            <button class="btn btn-secondary ml-3" onclick="getTokens()">Refresh</button>
+                            <div class="table-responsive" style="max-height: 75vh; overflow-y: scroll;">
+                                <table class="table">
+                                    <thead>
+                                        <tr style="position: sticky; top: 0; z-index: 1; background: #0a0a0a;">
+                                            <th scope="col"><input type="checkbox" id="t-all" onclick="updateTokenSelect('all')"></th>
+                                            <th scope="col">User ID</th>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Token</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Guilds</th>
+                                            <th scope="col">Added On</th>
+                                            <th scope="col">Boosts</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbody-div">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h6>Manage Selected (<span id="tkn-select">..</span>/<span class="tkn-total">...</span>) (<span id="invalid-tokens">..</span> invalid(s) + lock(s))</h6>
+                            <button onclick="removeTokens()" class="btn btn-danger mr-3">Remove</button>
+                            <button onclick="rescanTokens()" class="btn btn-secondary mr-3">Rescan</button>
+                            <button onclick="removeInvalidTokens()" class="btn btn-danger mr-3">Remove ALL Invalid/Locked Tokens</button>
+
+                            <h6 class="mt-4">Add Tokens</h6>
+                            <input placeholder="Type" id="token-type"></input>
+                            <p>(0=online, 1=offline, 2=boost_1m, 3=boost_3m)</p>
+                            <br>
+                            <textarea id="tokens-text" placeholder="tokens here, one per line" style="width:100%; height: 30vh; background-color: rgba(0,0,0,0); color: #fff;"></textarea>
+                            <br>
+                            <button class="btn btn-secondary" onclick="addTokens()">Add Tokens</button>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <h2 class="mb-3">User Lookup</h2>
+                            
+                            <input id='user-id' type="text" class="flex-fill align-middle" placeholder="ID (0 = all users)">
+                            <a onclick='getUser()' class="btn btn-primary align-middle bd-highlight">
+                                <i class="fa-solid fa-paper-plane" style="height: 14px; width: 14px;"></i>
+                            </a>
+                            
+                            <div class="row" id="useractivity"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- jQuery, Popper.js, and Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.sellix.io/static/js/embed.js"></script>
+    <script src="https://kit.fontawesome.com/0c72610b60.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+    <script>
+        function scroll(id) {
+            $(`#${id}`).scrollTop($(`#${id}`)[0].scrollHeight);
+        }
+        
+        function formatUnixTimestamp(unixTimestamp) {
+            const date = new Date(unixTimestamp);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        function ws_ping() {
+            if (!window.ws) {
+                return
+            }
+            if (window.ws.readyState !== 1) {
+                return
+            }
+            window.ws.send('ding dong')
+        }
+
+        function ws_connect() {
+            window.ws = new WebSocket(`${(location.protocol === 'https:') ? 'wss' : 'ws'}://api-${window.location.host}/api/v1/admin/logs/ws`);
+
+            window.last_message_date = ''
+
+            window.ws.onopen = function() {
+                console.log('ws connected')
+                ws.send(localStorage.getItem("token"))
+            };
+            
+            window.ws.onmessage = function (evt) {
+                var data = ''
+                for (let d of evt.data.split('\n')) {
+                    data += `${d}<br>`
+                }
+                $('#livelogsbox').html($('#livelogsbox').html() + `${data}`)
+                scroll('livelogsboxscroll')
+            };
+            
+            window.ws.onclose = function() { 
+                setTimeout(function() {
+                    ws_connect()
+                }, 1000);
+            };
+        }
+        ws_connect()
+        setInterval(ws_ping, 5000)
+
+        function sendMessage() {
+            var message_content = $('#message-box').val()
+            $('#message-box').val('')
+            axios({
+                method: 'post',
+                url: `https://api-${window.location.host}/api/v1/admin/chat`,
+                data: {
+                    command: message_content
+                },
+                headers: {
+                    authorization: localStorage.getItem("token")
+                }
+            })
+            .then(function (response) {
+                console.log(response);
+                var html_data = `<p><span style="font-weight: 900;">System:</span> <span style="color: lightgrey;">${response.data.reply.replaceAll('\n', '<br>')}</span></p>`
+                
+                $('#chatbox').html($('#chatbox').html() + html_data)
+                scroll('chatbox')
+
+                if (response.data.jwt != undefined) {
+                    localStorage.setItem("token", response.data.jwt)
+                }
+
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    location.href = "https://" + location.host + "/login"
+                }
+            });
+        }
+        sendMessage()
+
+        function formatPayment(item, sub) {
+            var change_prefix = "+"
+            var change = item.change
+            if (change < 0) {
+                change_prefix = "-"
+                change = change * -1
+            }
+
+            var data = `<div class="col-12 mb-2">`
+            if (sub == true) {
+                data = `<div class="col-11 offset-1 mb-2">`
+            }
+
+            return data + `<div class="activity-box">
+                        <div class="row pl-4">
+                            <div class="col-1 center-block justify-content-center">
+                                <div class="h-100" style="display: flex; justify-content: center; align-items: center;">
+                                    <i class="fa-solid fa-dollar-sign icon"></i>
+                                    <div class="icon-circle"></div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <h5 class="m-0">Payment #${item.id} - ${formatUnixTimestamp(item.created_at)}</h5>
+                                <p class="m-0">${item.reason} | ${change_prefix}$${change / 10000} | Balance: $${item.balance / 10000}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+        }
+
+        const key_to_name = {
+            0: "Online",
+            1: "Offline",
+            2: "Boost (1m)",
+            3: "Boost (3m)"
+        }
+
+        const key_to_status = {
+            0: "<span class='text-warning'>In Queue / Add Bot to Guild</span>",
+            1: "<span class='text-primary'>In Progress</span>",
+            2: "<span class='text-success'>Completed</span>"
+        }
+
+        const key_to_status_token = {
+            0: "<span class='text-success'>ok</span>",
+            1: "<span class='text-danger'>invalid</span>",
+            2: "<span class='text-danger'>locked</span>",
+            3: "<span class='text-warning'>expired</span>",
+            4: "<span class='text-danger'>quarantined</span>",
+            5: "<span class='text-danger'>spammer</span>",
+        }
+
+        const key_to_name_token = {
+            0: '<span class="text-success">Online</span>',
+            1: "Offline",
+            2: '<span class="purple">Boost (1m)</span>',
+            3: '<span class="purple2">Boost (3m)</span>'
+        }
+
+
+        function getUser() {
+            axios({
+                method: 'get',
+                url: `https://api-${window.location.host}/api/v1/admin/user/${$('#user-id').val()}`,
+                headers: {
+                    authorization: localStorage.getItem("token")
+                }
+            })
+            .then(function (response) {
+                console.log(response);
+                var activity_data = response.data.data.activity
+                var raw_html = ""
+                for (let item of activity_data) {
+                    
+                    if (item.type == "payment") {
+                        raw_html += formatPayment(item, false)
+                    } else {
+                        var order_data = ""
+                        if (item.status == 2 || !(item.order_data[0] instanceof Array)) {
+                            for (let order of item.order_data) {
+                                order_data += `${key_to_name[order.item_key]}: ${order.filled}/${order.quantity} (${order.joins} joined, ${order.failed} failed) | `
+                            }
+                            if (order_data.length > 0) {
+                                order_data = order_data.slice(0, -3)
+                            }
+                        } else {
+                            for (let order of item.order_data) {
+                                order_data += `${key_to_name[order[0]]}: 0/${order[1]} | `
+                            }
+                            if (order_data.length > 0) {
+                                order_data = order_data.slice(0, -3)
+                            }
+                        }
+                        
+                        raw_html += `<div class="col-12 mb-2">
+                                <div class="activity-box">
+                                    <div class="row pl-4">
+                                        <div class="col-1 center-block justify-content-center">
+                                            <div class="h-100" style="display: flex; justify-content: center; align-items: center;">
+                                                <i class="fa-solid fa-basket-shopping icon"></i>
+                                                <div class="icon-circle"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <h5 class="m-0">Order #${item.id} - ${key_to_status[item.status]} - ${formatUnixTimestamp(item.created_at)}</h5>
+                                            <p class="m-0">${order_data}</p>
+                                            <p class="m-0">Guild ID: ${item.guild_id}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`
+                        
+                        for (let invoice of item.invoices) {
+                            raw_html += formatPayment(invoice, true)
+                        }
+                    }
+                }
+                if (raw_html.length > 0) {
+                    $('#useractivity').html(raw_html)
+                } else (
+                    $('#useractivity').html(`<p>No activity found.</p>`)
+                )
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    location.href = "https://" + location.host + "/login"
+                }
+            });
+        }
+
+        function getLogsList() {
+            axios({
+                method: 'get',
+                url: `https://api-${window.location.host}/api/v1/admin/logs`,
+                headers: {
+                    authorization: localStorage.getItem("token")
+                }
+            })
+            .then(function (response) {
+                console.log(response);
+                var raw_html = ""
+                for (let item of response.data.data) {
+                    raw_html += `<p onclick="getLog('${item}')" style="cursor: pointer;">${item}</p>`
+                }
+                $('#pastlogslist').html(raw_html)
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    location.href = "https://" + location.host + "/login"
+                }
+            });
+        }
+        getLogsList()
+
+        function getLog(item) {
+            axios({
+                method: 'get',
+                url: `https://api-${window.location.host}/api/v1/admin/logs/fetch/${item}`,
+                headers: {
+                    authorization: localStorage.getItem("token")
+                }
+            })
+            .then(function (response) {
+                console.log(response);
+
+                $('#pastlogsbox').html(`<p>${response.data.data.replaceAll('\n', '<br>')}</p>`)
+                toastr.success('Log fetched.')
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    location.href = "https://" + location.host + "/login"
+                }
+            });
+        }
+
+        window.selected_tokens = []
+        function updateTokenSelect(token) {
+            if (token == 'all') {
+                for (let token of window.tokens) {
+                    document.getElementById(`t-${token.split('.')[0]}`).checked = document.getElementById('t-all').checked
+                }
+                if (document.getElementById('t-all').checked) {
+                    window.selected_tokens = window.tokens
+                } else {
+                    window.selected_tokens = []
+                }
+            } else {
+                if (!(document.getElementById(`t-${token.split('.')[0]}`).checked)) {
+                    window.selected_tokens = selected_tokens.filter(e => e !== token)
+                } else {
+                    window.selected_tokens.push(token)
+                }
+
+                if (window.selected_tokens.length == window.tokens.length) {
+                    document.getElementById('t-all').checked = true
+                } else {
+                    document.getElementById('t-all').checked = false
+                }
+            }
+            $('#tkn-select').html(window.selected_tokens.length)
+        }
+
+        window.tokens = []
+        window.invalid_tokens = []
+        function getTokens() {
+            axios({
+                method: 'get',
+                url: `https://api-${window.location.host}/api/v1/admin/tokens`,
+                headers: {
+                    authorization: localStorage.getItem("token")
+                }
+            })
+            .then(function (response) {
+                console.log(response);
+                var raw_html = ""
+                window.tokens = []
+                window.invalid_tokens = []
+                for (let item of response.data.data) {
+                    window.tokens.push(item.token)
+                    if (item.status != 0 && item.status != 3) {
+                        window.invalid_tokens.push(item.token)
+                    }
+                    raw_html += `<tr class="row-striped">
+                        <td><input type="checkbox" id="t-${item.token.split('.')[0]}" onclick="updateTokenSelect('${item.token}')"></td>
+                        <td>${item.user_id}</td>
+                        <td>${key_to_name_token[item.type]}</td>
+                        <td><input style="width:90%" value="${item.token}"></td>
+                        <td>${key_to_status_token[item.status]}</td>
+                        <td>${item.guild_count}</td>
+                        <td>${formatUnixTimestamp(item.added_on)}</td>
+                        <td>${item.boosts_remaining}</td>
+                    </tr>`
+                }
+                $('.tbody-div').html(raw_html)
+                $('.tkn-total').html(response.data.data.length)
+                var selected_tokens = window.selected_tokens
+                for (let token of selected_tokens) {
+                    try {
+                        document.getElementById(`t-${token.split('.')[0]}`).checked = true
+                    } catch {
+                        window.selected_tokens = window.selected_tokens.filter(e => e !== token)
+                    }
+                }
+                $('#invalid-tokens').html(window.invalid_tokens.length)
+                $('#tkn-select').html(window.selected_tokens.length)
+                toastr.success('Tokens fetched.')
+            })
+        }
+        getTokens()
+
+        function removeTokens() {
+            if (prompt("Are you sure you want to remove these tokens? Type 'yes' to confirm.") != "yes") {
+                return
+            }
+            
+            axios({
+                method: 'delete',
+                url: `https://api-${window.location.host}/api/v1/admin/tokens`,
+                data: {
+                    tokens: window.selected_tokens
+                },
+                headers: {
+                    authorization: localStorage.getItem("token")
+                }
+            })
+            .then(function (response) {
+                console.log(response);
+                toastr.success('Tokens removed.')
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    location.href = "https://" + location.host + "/login"
+                }
+            });
+        }
+
+        function removeInvalidTokens() {
+            if (prompt(`Are you sure you want to remove ${window.invalid_tokens.length} INVALID/LOCKED token(s)? Type 'yes' to confirm.`) != "yes") {
+                return
+            }
+            
+            axios({
+                method: 'delete',
+                url: `https://api-${window.location.host}/api/v1/admin/tokens`,
+                data: {
+                    tokens: window.invalid_tokens
+                },
+                headers: {
+                    authorization: localStorage.getItem("token")
+                }
+            })
+            .then(function (response) {
+                console.log(response);
+                toastr.success('Tokens removed.')
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    location.href = "https://" + location.host + "/login"
+                }
+            });
+        }
+
+        function rescanTokens() {
+            if (prompt("Are you sure you want to rescan these tokens? Type 'yes' to confirm.") != "yes") {
+                return
+            }
+            
+            axios({
+                method: 'post',
+                url: `https://api-${window.location.host}/api/v1/admin/tokens/rescan`,
+                data: {
+                    tokens: window.selected_tokens
+                },
+                headers: {
+                    authorization: localStorage.getItem("token")
+                }
+            })
+            .then(function (response) {
+                console.log(response);
+                toastr.success('Scan started.')
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    location.href = "https://" + location.host + "/login"
+                }
+            });
+        }
+
+        function addTokens() {
+            var tokens = $('#tokens-text').val()
+            $('#tokens-text').val('')
+            axios({
+                method: 'post',
+                url: `https://api-${window.location.host}/api/v1/admin/tokens`,
+                data: {
+                    tokens: tokens.split('\n'),
+                    type: $('#token-type').val()
+                },
+                headers: {
+                    authorization: localStorage.getItem("token")
+                }
+            })
+            .then(function (response) {
+                console.log(response);
+                toastr.success('Tokens are starting to be imported.')
+                $('#tokens-text').val(tokens)
+            })
+            .catch(function (error) {
+                console.log(error);
+                $('#tokens-text').val(tokens)
+                if (error.response.status == 401) {
+                    location.href = "https://" + location.host + "/login"
+                }
+            });
+        }
+    </script>
+</body>
+</html>

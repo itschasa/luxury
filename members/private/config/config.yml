@@ -1,0 +1,50 @@
+discord_app:
+  token: "MTIwN***"
+  client_id: "12041237***"
+  client_secret: "ey71x2g***"
+  redirect_uri: "https%3A%2F%2Fmem.luxurynitro.com%2Foauth" # url encoded
+  plain_redirect_uri: "https://mem.luxurynitro.com/oauth"
+
+sellix:
+  secret_key: "2uyc8Hu***"
+  balance_product_id: "65c12***" # 1 in quantity = 0.01 usd in balance, so product value should be 0.01$
+
+admins: # list of user ids that should have admin
+- 413545594880
+- 413545595904
+
+# stored as 1/100ths of a penny
+# 100 = 1 cent
+# 10,000 = 1 dollar
+prices:
+  online: 100
+  offline: 10
+  boost_1month: 2000
+  boost_3month: 5000
+
+# max time since added allowed in stock cycle
+max_age:
+  boost_1month: 432000000 # 5 days in milliseconds
+  boost_3month: 1728000000 # 20 days in milliseconds
+
+turnstile:
+  sitekey: "0x4AAAAA***"
+  secret: "0x4AAAAA***"
+  jwt_expire: 600000 # 10 mins in milliseconds
+
+jwt:
+  # DO NOT CHANGE, OR EXPOSE
+  secret: "UUlE2WQL5ynjf***"
+  algor: HS256
+
+email:
+  address: "noreply.luxuryboosts@gmail.com"
+  password: "***"
+  jwt_expire: 21600000 # 6 hours in milliseconds
+
+# DO NOT CHANGE
+snowflake_epoch: 1707150000000
+
+auth_jwt_expire: 21600000 # 6 hours in milliseconds
+
+forgot_jwt_expire: 21600000 # 6 hours in milliseconds

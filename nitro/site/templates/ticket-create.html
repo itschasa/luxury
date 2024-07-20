@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LuxuryNitro - Create Ticket</title>
+    <link rel="stylesheet" href="assets/vendors/core/core.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/fonts/feather-font/css/iconfont.css">
+    <link rel="stylesheet" href="assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="assets/vendors/toastr/toastr.min.css">
+    <link rel="icon" href="assets/img/logo.png" type="image/png" />
+</head>
+    
+<body>
+
+    <div class="main-wrapper">
+
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="sidebar-brand">
+                    Luxury<span>Nitro</span>
+                </a>
+                <div class="sidebar-toggler not-active">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="sidebar-body">
+                <ul class="nav" style="padding-top: 10px">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <i class="link-icon" data-feather="layout"></i>
+                            <span class="link-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="purchase" class="nav-link">
+                            <i class="link-icon" data-feather="dollar-sign"></i>
+                            <span class="link-title">Purchase</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq" class="nav-link">
+                            <i class="link-icon" data-feather="help-circle"></i>
+                            <span class="link-title">FAQ</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item nav-category mb-3">
+                        Tickets
+                        <p class="text-muted" style="font-size: 10px;">Updates every 5s</p>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="ticket-create" class="nav-link">
+                            <i class="link-icon" data-feather="plus-circle"></i>
+                            <span class="link-title">Create</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="loading-tickets">
+                        <a class="nav-link">
+                            <i class="link-icon" data-feather="loader"></i>
+                            <span class="link-title">Loading...</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#closed-dropdown" role="button" aria-expanded="false" aria-controls="emails">
+                            <i class="link-icon" data-feather="archive"></i>
+                            <span class="link-title" id="closed-span">Closed</span>
+                            <i class="link-arrow" data-feather="chevron-down"></i>
+                        </a>
+                        <div class="collapse" id="closed-dropdown">
+                            <ul class="nav sub-menu" id="closed-items">
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="page-wrapper">
+            <nav class="navbar">
+                <a href="#" class="sidebar-toggler">
+                    <i data-feather="menu"></i>
+                </a>
+                <div class="navbar-content">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="settings" title="Settings">
+                                <i class="link-arrow text-secondary" style="width: 20px;" data-feather="settings"></i>
+                            </a> 
+                        </li>
+                        <li class="nav-item">
+                            <a href="logout" title="Logout">
+                                <i class="link-arrow text-danger" style="width: 20px;" data-feather="log-out"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="page-content">
+                <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+                    <div class="mt-5">
+                        <h4 class="mb-3 mb-md-0">Tickets</h4>
+                    </div>
+                </div>
+                <div class="row mb-4"> <!-- <div class="row d-md-block"> -->
+                    <div class="col-sm-12 col-lg-6 grid-margin">
+                        <div class="card">
+                            <div class="card-header align-middle pl-3">
+                                <i class="mb-1 text-primary align-middle mr-2 icon-small" data-feather="plus-circle"></i>
+                                Create Ticket
+                            </div>
+                            <div class="card-body" style="padding-bottom: 0.9rem;padding-top: 0.75rem;">
+                                <div class="row align-middle mb-2">
+                                    <i class="text-danger icon-small d-block align-middle mr-1" style="height: 20px; width: 20px" data-feather="alert-circle"></i>
+                                    <span class="align-middle" style="margin-top: 1px;">Before submitting a ticket, please read our <a style="color: #2169b9" target="_blank" href="faq#faqOne">FAQ</a></span>
+                                </div>
+                                <div class="row align-middle mb-2">
+                                    <i class="text-danger icon-small d-block align-middle mr-1" style="height: 20px; width: 20px" data-feather="alert-circle"></i>
+                                    <span class="align-middle" style="margin-top: 1px;">We recommend making a ticket in our <a style="color: #2169b9" target="_blank" href="https://discord.gg/luxservices">Discord Server</a>, as we are likely to respond quicker, and have an AI chatbot that might be able to help you even quicker.</span>
+                                </div>
+                                <div class="row align-middle">
+                                    <label class="text-muted mb-0">Title</label>
+                                </div>
+                                <div class="row mb-2">
+                                    <input maxlength="50" id="title" type="text" class="w-100 align-middle form-control form-control-sm" placeholder="Haven't received my credits">
+                                </div>
+                                <div class="row align-middle">
+                                    <label class="text-muted mb-0">Description</label>
+                                </div>
+                                <div class="row mb-2">
+                                    <textarea maxlength="750" id="description" style="height: 190px;" class="w-100 align-middle form-control form-control-sm" placeholder="My sellix order ID is ********"></textarea>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="cf-turnstile" data-theme="dark" data-retry-interval="500" data-sitekey="0x4AAAAAAADU9gk40AX3B2Bm"></div>
+                                </div>
+                                <div class="row">
+                                    <a id="action-btn" onclick="create_ticket()" class="btn btn-primary align-middle">Create</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between">
+                <p class="text-muted text-center text-md-left">Copyright © 2023 <a href="/">LuxuryNitro</a>. All rights reserved.</p>
+                <p class="text-muted text-center text-md-right">Made with ❤️ by <a href="https://chasa.wtf" target="_blank" class="text-primary">chasa</a></p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script src="assets/vendors/core/core.js"></script>
+    <script src="assets/vendors/feather-icons/feather.min.js"></script>
+    <script src="assets/js/templatef195.js?v=2.1"></script>
+    <script src="assets/vendors/toastr/toastr.min.js"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script>
+        function create_ticket() {
+            if (turnstile.getResponse() == undefined) {
+                toastr["error"]("Complete the Captcha.", "Error")
+            } else {
+                $('#action-btn').attr("disabled", true)
+                axios({
+                    method: 'post',
+                    url: '/api/v1/users/@me/tickets',
+                    withCredentials: true,
+                    data: {
+                        'title': $('#title').val(),
+                        'description': $('#description').val(),
+                        'token': turnstile.getResponse()
+                    }
+                })
+                .then(function (response) {
+                    $('#action-btn').attr("disabled", false)
+                    toastr["success"](response.data.message, "Success");
+                    window.location.href = window.location.href.replace('ticket-create', `ticket?id=${response.data.id}`)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    if (error.response.status == 401) {
+                        window.location.reload();
+                    }
+                    toastr["error"](error.response.data.message, "Error");
+                    $('#action-btn').attr("disabled", false)
+                    turnstile.reset()
+                });
+            }
+        }
+        
+        function fetch_tickets() {
+            axios({
+                method: 'get',
+                url: '/api/v1/users/@me/tickets',
+                withCredentials: true
+            })
+            .then(function (response) {
+                console.log(response);
+                var closed_unread = false
+                for(let ticket of response.data) {
+                    if (ticket.seen == false && ticket.open == false) {
+                        closed_unread = true
+                    }
+                    if (ticket.seen == true) {
+                        var name_tag = `#${ticket.id}`
+                    } else {
+                        var name_tag = `<b>#${ticket.id}</b><span style="margin-left: 3px;">(Unread)</span>`
+                    }
+                    
+                    if ($(`#ticket-${ticket.id}`).length) {
+                        if (ticket.open == true) {
+                            $(`#ticket-${ticket.id}`).html(`
+                            <a href="ticket?id=${ticket.id}" class="nav-link">
+                                <i class="link-icon" data-feather="message-square"></i>
+                                <span class="link-title">${name_tag}</span>
+                            </a>`);
+                        } else {
+                            $(`#ticket-${ticket.id}`).html(`<a href="ticket?id=${ticket.id}" class="nav-link">${name_tag}</a>`);
+                        }
+                    } else {
+                        if (ticket.open == true) {
+                            $('#loading-tickets').after(`
+                            <li class="nav-item" id="ticket-${ticket.id}">
+                                <a href="ticket?id=${ticket.id}" class="nav-link">
+                                    <i class="link-icon" data-feather="message-square"></i>
+                                    <span class="link-title">${name_tag}</span>
+                                </a>
+                            </li>`)
+                        } else {
+                            $('#closed-items').append(`
+                            <li class="nav-item" id="ticket-${ticket.id}">
+                                <a href="ticket?id=${ticket.id}" class="nav-link">${name_tag}</a>
+                            </li>`)
+                        }
+                    }
+                }
+                
+                if (closed_unread == true) {
+                    $('#closed-span').html('<b>Closed</b> (Unread)')
+                } else {
+                    $('#closed-span').html('Closed')
+                }
+                feather.replace()
+                $('#loading-tickets').hide()
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    window.location.reload();
+                }
+            });
+        }
+        fetch_tickets()
+        setInterval(fetch_tickets, 5000)
+    </script>
+</body>
+
+</html>

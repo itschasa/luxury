@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LuxuryNitro - Settings</title>
+    <link rel="stylesheet" href="assets/vendors/core/core.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/fonts/feather-font/css/iconfont.css">
+    <link rel="stylesheet" href="assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="assets/vendors/toastr/toastr.min.css">
+    <link rel="icon" href="assets/img/logo.png" type="image/png" />
+</head>
+    
+<body>
+
+    <div class="main-wrapper">
+
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="sidebar-brand">
+                    Luxury<span>Nitro</span>
+                </a>
+                <div class="sidebar-toggler not-active">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="sidebar-body">
+                <ul class="nav" style="padding-top: 10px">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <i class="link-icon" data-feather="layout"></i>
+                            <span class="link-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="purchase" class="nav-link">
+                            <i class="link-icon" data-feather="dollar-sign"></i>
+                            <span class="link-title">Purchase</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq" class="nav-link">
+                            <i class="link-icon" data-feather="help-circle"></i>
+                            <span class="link-title">FAQ</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item nav-category mb-3">
+                        Tickets
+                        <p class="text-muted" style="font-size: 10px;">Updates every 5s</p>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ticket-create" class="nav-link">
+                            <i class="link-icon" data-feather="plus-circle"></i>
+                            <span class="link-title">Create</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="loading-tickets">
+                        <a class="nav-link">
+                            <i class="link-icon" data-feather="loader"></i>
+                            <span class="link-title">Loading...</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#closed-dropdown" role="button" aria-expanded="false" aria-controls="emails">
+                            <i class="link-icon" data-feather="archive"></i>
+                            <span class="link-title" id="closed-span">Closed</span>
+                            <i class="link-arrow" data-feather="chevron-down"></i>
+                        </a>
+                        <div class="collapse" id="closed-dropdown">
+                            <ul class="nav sub-menu" id="closed-items">
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="page-wrapper">
+            <nav class="navbar">
+                <a href="#" class="sidebar-toggler">
+                    <i data-feather="menu"></i>
+                </a>
+                <div class="navbar-content">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="settings" title="Settings">
+                                <i class="link-arrow text-secondary" style="width: 20px;" data-feather="settings"></i>
+                            </a> 
+                        </li>
+                        <li class="nav-item">
+                            <a href="logout" title="Logout">
+                                <i class="link-arrow text-danger" style="width: 20px;" data-feather="log-out"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="page-content">
+                <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+                    <div class="mt-5">
+                        <h4 class="mb-3 mb-md-0">Settings</h4>
+                    </div>
+                </div>
+                <div class="row mb-4"> <!-- <div class="row d-md-block"> -->
+                    <div class="col-sm-12 col-lg-4 grid-margin">
+                        <div class="card h-100">
+                            <div class="card-header align-middle pl-3">
+                                <i class="mb-1 text-primary align-middle mr-2 icon-small" data-feather="key"></i>
+                                Password
+                            </div>
+                            <div class="card-body">
+                                <div class="row align-middle mb-3">
+                                    <i class="text-muted icon-small d-block align-middle mr-1" style="height: 20px; width: 20px" data-feather="alert-circle"></i>
+                                    <span class="align-middle text-muted" style="margin-top: 1px;">To change your password, you need to go through the Forgot Password process.</span>
+                                </div>
+                                <div class="row">
+                                    <a href="recover" class="btn btn-primary align-middle">Change Password</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4 grid-margin">
+                        <div class="card h-100">
+                            <div class="card-header align-middle pl-3">
+                                <i class="mb-1 text-primary align-middle mr-2 icon-small" data-feather="key"></i>
+                                API Key
+                            </div>
+                            <div class="card-body">
+                                <div class="row align-middle mb-3">
+                                    <i class="text-warning icon-small d-block align-middle mr-1" style="height: 20px; width: 20px" data-feather="alert-circle"></i>
+                                    <span class="align-middle text-muted" style="margin-top: 1px;">Be careful! This key can be used to make orders on your behalf. Never share it with anyone!</span>
+                                </div>
+                                <div class="row mb-2">
+                                    <input type="password" id="api_key" disabled class="w-100 align-middle form-control form-control-sm">
+                                </div>
+                                <div class="row">
+                                    <a onclick="toggleAPIKeyView()" id="api_btn" class="btn btn-primary align-middle mr-2">Reveal</a>
+                                    <a onclick="resetAPIKey()" class="btn btn-primary align-middle">Reset Key</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4 grid-margin">
+                        <div class="card h-100">
+                            <div class="card-header align-middle pl-3">
+                                <i class="mb-1 text-primary align-middle mr-2 icon-small" data-feather="user"></i>
+                                Account
+                            </div>
+                            <div class="card-body" style="padding-bottom: 0.9rem;padding-top: 0.75rem;">
+                                <div class="row align-middle">
+                                    <label class="text-muted mb-0">Username</label>
+                                </div>
+                                <div class="row mb-2">
+                                    <input type="text" id="username" disabled class="w-100 align-middle form-control form-control-sm">
+                                </div>
+                                <div class="row align-middle">
+                                    <label class="text-muted mb-0">Display Name</label>
+                                </div>
+                                <div class="row mb-2">
+                                    <input type="text" id="display_name" disabled class="w-100 align-middle form-control form-control-sm">
+                                </div>
+                                <div class="row align-middle">
+                                    <label class="text-muted mb-0">Email</label>
+                                </div>
+                                <div class="row mb-2">
+                                    <input type="text" id="email" disabled class="w-100 align-middle form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between">
+                <p class="text-muted text-center text-md-left">Copyright © 2023 <a href="/">LuxuryNitro</a>. All rights reserved.</p>
+                <p class="text-muted text-center text-md-right">Made with ❤️ by <a href="https://chasa.wtf" target="_blank" class="text-primary">chasa</a></p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script src="assets/vendors/core/core.js"></script>
+    <script src="assets/vendors/feather-icons/feather.min.js"></script>
+    <script src="assets/js/templatef195.js?v=2.1"></script>
+    <script src="assets/vendors/toastr/toastr.min.js"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script>
+        toastr.options.progressBar = true;
+        const base_key = 'api_real-apikeys-are-not-here-sowwwy' 
+        window.api_key = null
+        window.api_view = false
+        updateAPIKey(base_key)
+        
+        function updateAPIKey(api_key) {
+            window.api_key = api_key
+            $('#api_key').val(window.api_key)
+            if (window.api_view) {
+                $('#api_key').attr('type', 'text')
+                $('#api_btn').text('Hide')
+            } else {
+                $('#api_key').attr('type', 'password')
+                $('#api_btn').text('Reveal')
+            }
+        }
+
+        function resetAPIKey() {
+            if (window.confirm("Resetting your API Key will cause connections to the API to break. Are you sure?")) {
+                axios({
+                    method: 'delete',
+                    url: '/api/v1/users/@me/key',
+                    withCredentials: true
+                })
+                .then(function (response) {
+                    console.log(response)
+                    updateAPIKey(response.data.api_key)
+                    toastr["success"](`API Key has been reset!`, "Success");
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    if (error.response.status == 401) {
+                        window.location.reload();
+                    }
+                });
+            }
+            
+        }
+
+        function toggleAPIKeyView() {
+            if (window.api_view == false) {
+                window.api_view = true
+                if (window.api_key == base_key) {
+                    axios({
+                        method: 'get',
+                        url: '/api/v1/users/@me/key',
+                        withCredentials: true
+                    })
+                    .then(function (response) {
+                        console.log(response)
+                        updateAPIKey(response.data.api_key)
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        if (error.response.status == 401) {
+                            window.location.reload();
+                        }
+                    });
+                } else {
+                    updateAPIKey(window.api_key)
+                }
+            } else {
+                window.api_view = false
+                updateAPIKey(window.api_key)
+            }
+        }
+
+        
+        axios({
+            method: 'get',
+            url: '/api/v1/users/@me',
+            withCredentials: true
+        })
+        .then(function (response) {
+            console.log(response)
+            $('#username').val(response.data.username)
+            $('#display_name').val(response.data.display_name)
+            $('#email').val(response.data.email)
+        })
+        .catch(function (error) {
+            console.log(error);
+            if (error.response.status == 401) {
+                window.location.reload();
+            }
+        });
+        
+        function fetch_tickets() {
+            axios({
+                method: 'get',
+                url: '/api/v1/users/@me/tickets',
+                withCredentials: true
+            })
+            .then(function (response) {
+                console.log(response);
+                var closed_unread = false
+                for(let ticket of response.data) {
+                    if (ticket.seen == false && ticket.open == false) {
+                        closed_unread = true
+                    }
+                    if (ticket.seen == true) {
+                        var name_tag = `#${ticket.id}`
+                    } else {
+                        var name_tag = `<b>#${ticket.id}</b><span style="margin-left: 3px;">(Unread)</span>`
+                    }
+                    
+                    if ($(`#ticket-${ticket.id}`).length) {
+                        if (ticket.open == true) {
+                            $(`#ticket-${ticket.id}`).html(`
+                            <a href="ticket?id=${ticket.id}" class="nav-link">
+                                <i class="link-icon" data-feather="message-square"></i>
+                                <span class="link-title">${name_tag}</span>
+                            </a>`);
+                        } else {
+                            $(`#ticket-${ticket.id}`).html(`<a href="ticket?id=${ticket.id}" class="nav-link">${name_tag}</a>`);
+                        }
+                    } else {
+                        if (ticket.open == true) {
+                            $('#loading-tickets').after(`
+                            <li class="nav-item" id="ticket-${ticket.id}">
+                                <a href="ticket?id=${ticket.id}" class="nav-link">
+                                    <i class="link-icon" data-feather="message-square"></i>
+                                    <span class="link-title">${name_tag}</span>
+                                </a>
+                            </li>`)
+                        } else {
+                            $('#closed-items').append(`
+                            <li class="nav-item" id="ticket-${ticket.id}">
+                                <a href="ticket?id=${ticket.id}" class="nav-link">${name_tag}</a>
+                            </li>`)
+                        }
+                    }
+                }
+                
+                if (closed_unread == true) {
+                    $('#closed-span').html('<b>Closed</b> (Unread)')
+                } else {
+                    $('#closed-span').html('Closed')
+                }
+                feather.replace()
+                $('#loading-tickets').hide()
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    window.location.reload();
+                }
+            });
+        }
+        fetch_tickets()
+        setInterval(fetch_tickets, 5000)
+    </script>
+</body>
+
+</html>

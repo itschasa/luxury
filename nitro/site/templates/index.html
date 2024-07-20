@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LuxuryNitro - Dashboard</title>
+    <link rel="stylesheet" href="assets/vendors/core/core.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/fonts/feather-font/css/iconfont.css">
+    <link rel="stylesheet" href="assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="assets/vendors/toastr/toastr.min.css">
+    <link rel="icon" href="assets/img/logo.png" type="image/png" />
+</head>
+
+<style>
+    @keyframes pulseBig {
+        0% {
+            opacity: 0.5
+        }
+        80% {
+            opacity: 0;
+            transform: scale(2.5)
+        }
+        100% {
+            opacity: 0
+        }
+    }
+    
+    .pulse-dot {
+        width: 14px;
+        height: 14px;
+        display: inline-block;
+        border-radius: 50%;
+        color: #3bd671;
+        background: #3bd671;
+        position: relative;
+        -ms-transform: none;
+        transform: none;
+    }
+
+    .pulse-dot:after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: currentColor;
+        animation: pulseBig 5s infinite;
+        opacity: 1;
+        border-radius: 50%;
+        top: 0;
+        left: 0;
+    }
+</style>
+    
+<body>
+
+    <div class="main-wrapper">
+
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="sidebar-brand">
+                    Luxury<span>Nitro</span>
+                </a>
+                <div class="sidebar-toggler not-active">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="sidebar-body">
+                <ul class="nav" style="padding-top: 10px">
+                    <li class="nav-item active">
+                        <a href="/" class="nav-link">
+                            <i class="link-icon" data-feather="layout"></i>
+                            <span class="link-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="purchase" class="nav-link">
+                            <i class="link-icon" data-feather="dollar-sign"></i>
+                            <span class="link-title">Purchase</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq" class="nav-link">
+                            <i class="link-icon" data-feather="help-circle"></i>
+                            <span class="link-title">FAQ</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item nav-category mb-3">
+                        Tickets
+                        <p class="text-muted" style="font-size: 10px;">Updates every 5s</p>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ticket-create" class="nav-link">
+                            <i class="link-icon" data-feather="plus-circle"></i>
+                            <span class="link-title">Create</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item" id="loading-tickets">
+                        <a class="nav-link">
+                            <i class="link-icon" data-feather="loader"></i>
+                            <span class="link-title">Loading...</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#closed-dropdown" role="button" aria-expanded="false" aria-controls="emails">
+                            <i class="link-icon" data-feather="archive"></i>
+                            <span class="link-title" id="closed-span">Closed</span>
+                            <i class="link-arrow" data-feather="chevron-down"></i>
+                        </a>
+                        <div class="collapse" id="closed-dropdown">
+                            <ul class="nav sub-menu" id="closed-items">
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="page-wrapper">
+            <nav class="navbar">
+                <a href="#" class="sidebar-toggler">
+                    <i data-feather="menu"></i>
+                </a>
+                <div class="navbar-content">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="settings" title="Settings">
+                                <i class="link-arrow text-secondary" style="width: 20px;" data-feather="settings"></i>
+                            </a> 
+                        </li>
+                        <li class="nav-item">
+                            <a href="logout" title="Logout">
+                                <i class="link-arrow text-danger" style="width: 20px;" data-feather="log-out"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="page-content">
+                <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+                    <div class="mt-5">
+                        <h4 class="mb-3 mb-md-0">Dashboard</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12 mb-3" id="news-div" style="display: none;">
+                        <div class="card h-100">
+                            <div class="card-header h-100 align-middle" style="padding: 0.5rem; padding-left: 20px;">
+                                <i class="text-warning mr-2 icon-small" data-feather="alert-circle"></i>
+                                <span class="align-middle" id="news-span"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-6 grid-margin">
+                        <div class="card h-100">
+                            <div class="card-header h-100 align-middle" style="padding-top: 16px;">
+                                <span class="pulse-dot align-middle" aria-hidden="true"></span>
+                                <span class="ml-2 align-middle">Updates every 5 seconds</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-6 grid-margin">
+                        <div class="card h-100">
+                            <div class="card-header h-100 align-middle">
+                                <i class="text-primary mr-2 icon-small" data-feather="server"></i>
+                                <span id="total-alts">...</span> alts, <span id="total-servers">...</span> servers, <span id="total-gifts">...</span> gifts claimed, <span id="boost-chance">..</span>% chance for Boost, <span id="basic-chance">..</span>% chance for Basic.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row"> <!-- <div class="row d-md-block"> -->
+                    <div class="col-sm-12 col-lg-3 grid-margin float-left">
+                        <div class="card">
+                            <div class="card-header align-middle">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="dollar-sign"></i>
+                                Credits: <span id="credits">...</span>
+                            </div>
+                            <div class="card-body">
+                                <a href="purchase" class="btn btn-primary w-100 mb-1">Use Credits</a>
+                                <a href="purchase" class="btn btn-primary w-100">Purchase Credits</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-3 grid-margin float-left">
+                        <div class="card">
+                            <div class="card-header align-middle">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="package"></i>
+                                <span id="order-box-title">Order #...</span>
+                                
+                                <a onclick="next_order_box()">
+                                    <i id="order-box-next" class="mb-1 text-primary icon-small float-right" alt="Next Order" title="Next Order" style="display:none" data-feather="arrow-right"></i>
+                                </a>
+                                
+                                <a onclick="previous_order_box()">
+                                    <i id="order-box-previous" class="mb-1 text-primary icon-small float-right" alt="Previous Order" title="Previous Order" style="display:none" data-feather="arrow-left"></i>
+                                </a>
+                                
+                            </div>
+                            <div class="card-body" id="order-box-body">
+                                <p class="card-text mb-1" style="margin-top: -7px;"><b>Gifts Received: </b><span id="order-box-received">...</span></p>
+                                <p class="card-text mb-1"><b>ETA Next Gift: </b><span id="order-box-eta-next">...</span></p>
+                                <p class="card-text mb-0"><b>ETA Completed: </b><span id="order-box-eta-completed">...</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-3 grid-margin float-left">
+                        <div class="card">
+                            <div class="card-header align-middle">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="activity"></i>
+                                Queue Info
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text mb-1" style="margin-top: -7px;"><b>Queue Length: </b><span id="queue-length"></span> Gifts</p>
+                                <p class="card-text mb-1"><b>Avg. Time per Gift: </b><span id="time-per-gift"></span></p>
+                                <p class="card-text mb-0"><b>ETA Queue Cleared: </b><span id="queue-cleared"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-3 grid-margin float-left">
+                        <div class="card">
+                            <div class="card-header align-middle">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="life-buoy"></i>
+                                Support
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text mb-1" style="margin-top: -7px;"><b>Open Tickets: </b><span id="open-tickets">...</span></p>
+                                <p class="card-text mb-1"><b>Closed Tickets: </b><span id="closed-tickets">...</span></p>
+                                <p class="card-text mb-0"><b>Avg. Time to Reply: </b><span id="support-time">...</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-4 grid-margin">
+                        <div class="card h-100">
+                            <div class="card-header align-middle">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="clipboard"></i>
+                                Order History
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive" style="margin-top: -9px; height: 250px">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Order ID</th>
+                                                <th>Status</th>
+                                                <th>ETA Completed</th>
+                                                <th>Gifts</th>
+                                                <th>Delete?</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="order-history">
+                                        </tbody>
+                                    </table>
+                                    <p id="order-history-info" class="text-muted text-center mt-2">Loading...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4 grid-margin">
+                        <div class="card h-100">
+                            <div class="card-header align-middle">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="users"></i>
+                                Queue
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive" style="margin-top: -9px; height: 250px">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>User (Order)</th>
+                                                <th>Status</th>
+                                                <th>ETA Next Gift</th>
+                                                <th>Gifts</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="queue_table"></tbody>
+                                    </table>
+                                    <p id="queue-info" class="text-muted text-center mt-2">Loading...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4 grid-margin">
+                        <div class="card h-100">
+                            <div class="card-header align-middle">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="clock"></i>
+                                Recent Claims
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive" style="margin-top: -9px; height: 250px">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>Type</th>
+                                                <th>User</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="recent-table">
+                                        </tbody>
+                                    </table>
+                                    <p id="recent-info" class="text-muted text-center mt-2">Loading...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col grid-margin">
+                        <div class="card h-100">
+                            <div class="card-header align-middle">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="trending-up"></i>
+                                Statistics
+                            </div>
+                            <div class="card-body pt-3">
+                                <div class="row ml-2 mb-0">
+                                    <label class="text-muted mb-0">Show data from the last:</label>
+                                </div>
+                                <div class="row ml-2 mb-3">
+                                    <input id='graph-vol' type="number" id="quantity" style="width: 2%; min-width: 60px;" class="align-middle form-control form-control-sm" value="7">
+                                    <select id='graph-muliplier' class="form-control form-control-sm align-middle mr-2" id="cars" style="width: 5%; min-width: 110px;">
+                                        <option value="h">Hours</option>
+                                        <option selected value="d">Days</option>
+                                        <option value="m">Months</option>
+                                    </select>
+                                    <a onclick="getGraph()" class="btn btn-primary align-middle">Update</a>
+                                </div>
+                                
+                                <div style="height: 50vh;">
+                                    <canvas id="graphingchart"></canvas>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between">
+                <p class="text-muted text-center text-md-left">Copyright © 2023 <a href="/">LuxuryNitro</a>. All rights reserved.</p>
+                <p class="text-muted text-center text-md-right">Made with ❤️ by <a href="https://chasa.wtf" target="_blank" class="text-primary">chasa</a></p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script src="assets/vendors/core/core.js"></script>
+    <script src="assets/vendors/feather-icons/feather.min.js"></script>
+    <script src="assets/js/templatef195.js?v=2.1"></script>
+    <script src="assets/vendors/toastr/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script>
+        toastr.options.progressBar = true;
+        
+        var boost_type = {
+            'Boost Monthly': '#fa6ef6',
+            'Basic Yearly': '#b2c6f1',
+            'Boost Yearly': '#ffcff9; text-shadow: 1px 1px 18px #a7a6a6;',
+            'Basic Monthly': '#7196ff',
+            'Classic Yearly': '#b2c6f1',
+            'Classic Monthly': '#7196ff',
+        }
+
+        var orders = {}
+        var current_order_id = null
+
+        var status_ids = [
+            ['In Queue','text-warning'],
+            ['Claiming','text-primary'],
+            ['Completed','text-success'],
+        ]
+        
+        function next(db, key, change) {
+            // change = 1 for fowards, -1 for backwards
+            var keys = Object.keys(db),
+                i = keys.indexOf(key);
+            return i !== -1 && keys[i + change] && db[keys[i + change]];
+        };
+
+        function next_order_box() {
+            update_order_box(next(orders, current_order_id, 1).id)
+        }
+        function previous_order_box() {
+            update_order_box(next(orders, current_order_id, -1).id)
+        }
+
+        function clear_order_box() {
+            $('#order-box-title').html(`No Open Orders`)
+            $('#order-box-eta-next').html('...')
+            $('#order-box-eta-completed').html('...')
+            $('#order-box-received').html(`...`)
+            current_order_id = null
+        }
+
+        function update_order_box(order_id) {
+            if (order_id == null) {
+                clear_order_box()
+                return
+            }
+            
+            if (orders[order_id].status == 2) {
+                order_id = next(orders, order_id, 1).id
+                if (order_id == undefined) {
+                    clear_order_box()
+                    return
+                }
+            }
+
+            current_order_id = order_id
+
+            $('#order-box-title').html(`Order #${order_id}`)
+            $('#order-box-eta-next').html(convertHMS(orders[order_id].eta.next))
+            $('#order-box-eta-completed').html(convertHMS(orders[order_id].eta.completed))
+            $('#order-box-received').html(`${orders[order_id].received}/${orders[order_id].quantity}`)
+            
+            if (next(orders, order_id, 1) == undefined) {
+                $('#order-box-next').hide()
+            } else {
+                $('#order-box-next').show()
+            }
+            if (next(orders, order_id, -1) == undefined) {
+                $('#order-box-previous').hide()
+            } else{
+                $('#order-box-previous').show()
+            }
+        }
+        
+        function convertHMS(value) {
+            if (value == undefined) {return ''}
+            const sec = parseInt(value, 10); // convert value to number if it's string
+            let hours   = Math.floor(sec / 3600); // get hours
+            let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
+            let seconds = sec - (hours * 3600) - (minutes * 60); //  get seconds
+            if (hours   > 0) {hours   = hours  +'hr '} else {hours   = ''}
+            if (minutes > 0) {minutes = minutes+'m ' } else {minutes = ''}
+            if (seconds > 0) {seconds = seconds+'s'  } else {
+                if (hours == 0 && minutes == 0) {
+                    seconds = seconds+'s'
+                } else {
+                    seconds = ''
+                }
+            }
+            return hours+minutes+seconds
+        }
+
+        function formatTime(unixSeconds) {
+            var date = new Date(unixSeconds * 1000);
+
+            var hour = date.getHours();
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+
+            if (hour < 10) {
+                hour = '0' + hour
+            }
+            if (minute < 10) {
+                minute = '0' + minute
+            }
+            if (second < 10) {
+                second = '0' + second
+            }
+
+            var formattedDate = hour + ':' + minute + ':' + second;
+
+            return formattedDate;
+        }
+
+        function update_queue_data() {
+            axios({
+                method: 'get',
+                url: '/api/v1/queue',
+                withCredentials: true
+            })
+            .then(function (response) {
+                console.log(response)
+
+                var queue_html = ''
+                for(let order of response.data.queue) {
+                    if (order.status == 0) {
+                        var extra_text = `(${response.data.queue.indexOf(order)}/${response.data.queue.length - 1})`
+                    } else {
+                        var extra_text = `(${order.received}/${order.quantity})`
+                    }
+
+                    queue_html += `<tr>
+                        <th>${order.user.display_name} (#${order.id})</th>
+                        <th class="${status_ids[order.status][1]}">${status_ids[order.status][0]} ${extra_text}</th>
+                        <th>${convertHMS(order.eta.next)}</th>
+                        <th>${order.quantity}</th>
+                    </tr>`
+                }
+
+                $('#queue_table').html(queue_html)
+                if (queue_html !== '') {
+                    $('#queue-info').hide()
+                } else {
+                    $('#queue-info').html('No orders found.').show()
+                }
+
+                var recent_html = ''
+                for(let recent of response.data.recent) {
+                    recent_html += `<tr>
+                        <th>${formatTime(recent.time)}</th>
+                        <th><span style="color: ${boost_type[recent.type]}">${recent.type}</span></th>
+                        <th>${recent.user.display_name}</th>
+                    </tr>`
+                }
+
+                $('#recent-table').html(recent_html)
+                if (recent_html !== '') {
+                    $('#recent-info').hide()
+                } else {
+                    $('#recent-info').html('No orders found.').show()
+                }
+
+                $('#queue-cleared').html(convertHMS(response.data.queue_cleared))
+                $('#time-per-gift').html(convertHMS(response.data.eta_per_gift))
+                $('#queue-length').html(response.data.queue_quantity)
+            })
+            .catch(function (error) {
+                console.log(error)
+                if (error.response.status == 401) {
+                    window.location.reload();
+                }
+            })
+        }
+
+        function fetch_user_data() {
+            axios({
+                method: 'get',
+                url: '/api/v1/users/@me',
+                withCredentials: true
+            })
+            .then(function (response) {
+                console.log(response);
+                
+                var closed_unread = false
+                var open_tickets = 0
+                var closed_tickets = 0
+                for(let ticket of response.data.tickets) {
+                    if (ticket.seen == false && ticket.open == false) {
+                        closed_unread = true
+                    }
+                    if (ticket.seen == true) {
+                        var name_tag = `#${ticket.id}`
+                    } else {
+                        var name_tag = `<b>#${ticket.id}</b><span style="margin-left: 3px;">(Unread)</span>`
+                    }
+                    
+                    if ($(`#ticket-${ticket.id}`).length) {
+                        if (ticket.open == true) {
+                            open_tickets += 1
+                            $(`#ticket-${ticket.id}`).html(`
+                            <a href="ticket?id=${ticket.id}" class="nav-link">
+                                <i class="link-icon" data-feather="message-square"></i>
+                                <span class="link-title">${name_tag}</span>
+                            </a>`);
+                        } else {
+                            closed_tickets += 1
+                            $(`#ticket-${ticket.id}`).html(`<a href="ticket?id=${ticket.id}" class="nav-link">${name_tag}</a>`);
+                        }
+                    } else {
+                        if (ticket.open == true) {
+                            open_tickets += 1
+                            $('#loading-tickets').after(`
+                            <li class="nav-item" id="ticket-${ticket.id}">
+                                <a href="ticket?id=${ticket.id}" class="nav-link">
+                                    <i class="link-icon" data-feather="message-square"></i>
+                                    <span class="link-title">${name_tag}</span>
+                                </a>
+                            </li>`)
+                        } else {
+                            closed_tickets += 1
+                            $('#closed-items').append(`
+                            <li class="nav-item" id="ticket-${ticket.id}">
+                                <a href="ticket?id=${ticket.id}" class="nav-link">${name_tag}</a>
+                            </li>`)
+                        }
+                    }
+                }
+                
+                if (closed_unread == true) {
+                    $('#closed-span').html('<b>Closed</b> (Unread)')
+                } else {
+                    $('#closed-span').html('Closed')
+                }
+                $('#loading-tickets').hide()
+                
+                $('#credits').html(response.data.credits)
+                $('#open-tickets').html(open_tickets)
+                $('#closed-tickets').html(closed_tickets)
+                $('#support-time').html(convertHMS(response.data.stats.support_time))
+                $('#total-alts').html(response.data.stats.alts)
+                $('#total-servers').html(response.data.stats.servers)
+                $('#total-gifts').html(response.data.stats.total_claims)
+                $('#basic-chance').html(response.data.stats.basic_percent)
+                $('#boost-chance').html(response.data.stats.boost_percent)
+                
+                var status0_html = ''
+                var status1_html = ''
+                var status2_html = ''
+                var open_order = []
+                reversed_orders = response.data.orders.reverse()
+                for(let order of response.data.orders) {
+                    if (order.status == 2) { // completed order
+                        try { delete orders[order.id] } catch {}
+                        status2_html += `<tr>
+                            <th>#${order.id}</th>
+                            <th class="${status_ids[order.status][1]}">${status_ids[order.status][0]}</th>
+                            <th></th>
+                            <th>${order.quantity}</th>
+                            <th></th>
+                        </tr>`
+                    } else {
+                        open_order.push(order.id)
+                        orders[order.id] = order
+                        data = `<tr>
+                            <th>#${order.id}</th>
+                            <th class="${status_ids[order.status][1]}">${status_ids[order.status][0]} ${order.status_text}</th>
+                            <th>${convertHMS(order.eta.completed)}</th>
+                            <th>${order.quantity}</th>
+                            <th><a onclick="deleteOrder('${order.id}')"><i class="text-muted icon-small" data-feather="x" height='14' width='14'></i></a></th>
+                        </tr>`
+                        if (order.status == 1) {
+                            status1_html += data
+                        } else {
+                            status0_html += data
+                        }
+                    }
+                }
+                $('#order-history').html(status1_html+status0_html+status2_html)
+                if (status1_html+status0_html+status2_html !== '') {
+                    $('#order-history-info').hide()
+                } else {
+                    $('#order-history-info').html('No orders found.').show()
+                }
+
+                if (response.data.news != undefined) {
+                    $('#news-span').html(response.data.news)
+                    $('#news-div').show()
+                } else {
+                    $('#news-div').hide()
+                }
+                
+                if (current_order_id == null && open_order.length > 0) {
+                    update_order_box(open_order[0])
+                } else if (current_order_id != null && open_order.length < 1) {
+                    update_order_box(null)
+                } else {
+                    update_order_box(current_order_id)
+                }
+                feather.replace()
+
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    window.location.reload();
+                }
+            });
+        }
+        
+        function deleteOrder(order_id) {
+            if (window.confirm("Are you sure you want to delete the order? (You will lose your place in the queue!)")) {
+                axios({
+                    method: 'delete',
+                    url: `/api/v1/users/@me/orders/${order_id}`,
+                    withCredentials: true
+                })
+                .then(function (response) {
+                    toastr["success"](`Order #${order_id} has been removed from the queue.`, "Success");
+                    fetch_user_data()
+                    update_queue_data()
+                })
+                .catch(function (error) {
+                    console.log(error)
+                    if (error.response.status == 401) {
+                        window.location.reload();
+                    }
+                    toastr["error"](error.response.data.message, "Error");
+                })
+            }
+        }
+
+        function formatTimestamp (timestamp) {
+            const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = String(date.getFullYear());
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+
+            return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+        }
+        
+        function getGraph() {
+            axios({
+                method: 'get',
+                url: `/api/v1/graph?time=${$('#graph-vol').val()}${$('#graph-muliplier').val()}`,
+                withCredentials: true
+            })
+            .then(function (response) {
+                const result = response.data.labels.map((timestampPair) => {
+                    const [startTimestamp, endTimestamp] = timestampPair.split('-').map(Number);
+                    const startTime = formatTimestamp(startTimestamp);
+                    const endTime = formatTimestamp(endTimestamp);
+                    return `${endTime} - ${startTime}`;
+                });
+                
+                window.graphchart.config.data = {
+                    'datasets': response.data.datasets,
+                    'labels': result
+                }
+                window.graphchart.update();
+            })
+            .catch(function (error) {
+                console.log(error)
+                if (error.response.status == 401) {
+                    window.location.reload();
+                }
+                toastr["error"](error.response.data.message, "Error");
+            })
+        }
+        
+        const ctx = document.getElementById('graphingchart').getContext('2d');
+        window.graphchart = new Chart(ctx, {
+            type: 'line',
+            data: {},
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 0
+                },
+                elements: {
+                    point: {
+                        radius: 1
+                    },
+                    line: {
+                        tension: 0.3
+                    }
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                hover: {
+                    mode: 'index',
+                    intersect: false
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            id: 'l',
+                            type: 'linear',
+                            position: 'left',
+                        },
+                        {
+                            id: 'r',
+                            type: 'linear',
+                            position: 'right'
+                        }
+                    ],
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+        });
+
+        fetch_user_data()
+        setInterval(fetch_user_data, 5000)
+        update_queue_data()
+        setInterval(update_queue_data, 5000)
+        getGraph()
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+2023-04-30 12:19:27,534 - DEBUG: balls (server.py:167)
+2023-04-30 12:19:27,534 - INFO: balls (server.py:168)
+2023-04-30 12:19:27,535 - WARNING: balls (server.py:169)
+2023-04-30 12:19:27,535 - ERROR: balls (server.py:170)
+2023-04-30 12:19:27,536 - CRITICAL: test (server.py:171)
+2023-04-30 12:19:27,549 - INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8069
+ * Running on http://192.168.0.85:8069 (_internal.py:224)
+2023-04-30 12:19:27,549 - INFO: [33mPress CTRL+C to quit[0m (_internal.py:224)
+2023-04-30 12:19:35,343 - DEBUG: Connection Inbound [/auth, 127.0.0.1] (server.py:97)
+2023-04-30 12:19:35,350 - DEBUG: SENT Hello [/auth, 127.0.0.1] (server.py:111)
+2023-04-30 12:19:35,382 - DEBUG: RECEIVE Hello [/auth, 127.0.0.1] (server.py:118)
+2023-04-30 12:19:35,408 - DEBUG: Good Secret [/auth, 127.0.0.1] (server.py:130)
+2023-04-30 12:19:35,657 - INFO: SENT Auth [/auth, 127.0.0.1, failed, Invalid License] (server.py:159)

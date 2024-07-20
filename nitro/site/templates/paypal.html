@@ -1,0 +1,448 @@
+<!-- this was never used in prod -->
+
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LuxuryNitro - PayPal</title>
+    <link rel="stylesheet" href="assets/vendors/core/core.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/fonts/feather-font/css/iconfont.css">
+    <link rel="stylesheet" href="assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="assets/vendors/toastr/toastr.min.css">
+    <link rel="icon" href="assets/img/logo.png" type="image/png" />
+</head>
+
+<style>
+    .toast-warning {
+        background-color: rgba(255, 166, 0, 0.678);
+    }
+</style>
+
+<body>
+
+    <div class="main-wrapper">
+
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="sidebar-brand">
+                    Luxury<span>Nitro</span>
+                </a>
+                <div class="sidebar-toggler not-active">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="sidebar-body">
+                <ul class="nav" style="padding-top: 10px">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <i class="link-icon" data-feather="layout"></i>
+                            <span class="link-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="purchase" class="nav-link">
+                            <i class="link-icon" data-feather="dollar-sign"></i>
+                            <span class="link-title">Purchase</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq" class="nav-link">
+                            <i class="link-icon" data-feather="help-circle"></i>
+                            <span class="link-title">FAQ</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item nav-category mb-3">
+                        Tickets
+                        <p class="text-muted" style="font-size: 10px;">Updates every 5s</p>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ticket-create" class="nav-link">
+                            <i class="link-icon" data-feather="plus-circle"></i>
+                            <span class="link-title">Create</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="loading-tickets">
+                        <a class="nav-link">
+                            <i class="link-icon" data-feather="loader"></i>
+                            <span class="link-title">Loading...</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#closed-dropdown" role="button" aria-expanded="false" aria-controls="emails">
+                            <i class="link-icon" data-feather="archive"></i>
+                            <span class="link-title" id="closed-span">Closed</span>
+                            <i class="link-arrow" data-feather="chevron-down"></i>
+                        </a>
+                        <div class="collapse" id="closed-dropdown">
+                            <ul class="nav sub-menu" id="closed-items">
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="page-wrapper">
+            <nav class="navbar">
+                <a href="#" class="sidebar-toggler">
+                    <i data-feather="menu"></i>
+                </a>
+                <div class="navbar-content">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="settings" title="Settings">
+                                <i class="link-arrow text-secondary" style="width: 20px;" data-feather="settings"></i>
+                            </a> 
+                        </li>
+                        <li class="nav-item">
+                            <a href="logout" title="Logout">
+                                <i class="link-arrow text-danger" style="width: 20px;" data-feather="log-out"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="page-content">
+                <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+                    <div class="mt-5">
+                        <h4 class="mb-3 mb-md-0">PayPal</h4>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center"> <!-- <div class="row d-md-block"> -->
+                    <div class="col-sm-12 col-lg-3 grid-margin">
+                        <div class="card">
+                            <div class="card-header align-middle text-center">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="shopping-cart"></i>
+                                1. Choose Credit Amount
+                            </div>
+                            <div id='card1' class="card-body" style="padding-bottom: 0.9rem; padding-top: 1rem">
+                                <div class="row text-center" style="margin-bottom: 5px; margin-top: 2px">
+                                    <span class="mb-1">Please select an amount of credits you'd like to purchase.</span>
+                                    <div class="col">
+                                        <label class="text-muted mb-0">Quantity</label>
+                                        <input type="number" id="quantity" class="align-middle form-control form-control-sm" min="2" value="2">
+                                    </div>
+                                    <div class="col">
+                                        <label class="text-muted mb-0">Price (USD)</label>
+                                        <input type="number" disabled id="price" class="align-middle form-control form-control-sm" value="">
+                                    </div>
+                                </div>
+                                <span class="float-left align-middle mt-2">via <b id="service">..</b>.</span>
+                                <a class="btn btn-primary mt-1 mb-0 align-middle text-center float-right" onclick="check_quantity()">Next</a>
+                                <a class="btn btn-primary mt-1 mb-0 align-middle text-center float-right mr-2" onclick="cycle_card(4)" data-toggle="tooltip" data-placement="top" title="If you have gone through these steps and have paid, you can skip to step 4.">Paid?</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-3 grid-margin">
+                        <div class="card">
+                            <div class="card-header align-middle text-center">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="info"></i>
+                                2. Information
+                            </div>
+                            <div id='card2' class="card-body" style="padding-bottom: 0.9rem; padding-top: 0.5rem; filter:blur(3px); pointer-events:none">
+                                <div class="row">
+                                    <span class="mb-1">By continuing, you agree to the following:</span>
+                                    <ul style="padding-inline-start: 16px;" class="mb-1">
+                                        <li><span>I will send <b id="amount-2">$2.00</b> in USD (United States Dollars).</span></li>
+                                        <li><span>I will use <b class="text-success" id="goodservice">Goods and Services</b>, <b class="text-danger" id="badservice">not Friends and Family</b>.</span></li>
+                                        <li><span>I will not attempt to fraudulently chargeback.</span></li>
+                                    </ul>  
+                                </div>
+                                <a class="btn btn-primary mt-1 mb-0 align-middle text-center float-right" onclick="cycle_card(3)">I agree.</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-3 grid-margin text-center">
+                        <div class="card">
+                            <div class="card-header align-middle">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="dollar-sign"></i>
+                                3. Send Money via PayPal
+                            </div>
+                            <div id='card3' class="card-body" style="padding-bottom: 0.9rem; padding-top: 1rem; filter:blur(3px); pointer-events:none">
+                                <div class="row mb-0 text-center">
+                                    <div class="col">
+                                        <span>Send <b id="amount-3">$x.xx</b> USD to the email below</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-1 text-center">
+                                    <div class="col">
+                                        <span>via <b id="service2">Goods and Services</b>.</span>
+                                    </div>
+                                </div>
+                                
+                                <input type="text" value="paypal@chasa.wtf" disabled class="w-100 align-middle form-control form-control-sm">
+                                <a class="btn btn-primary mb-0 align-middle float-right" style="margin-top: 11px;" onclick="cycle_card(4)">I have sent <span id="amount-4">$x.xx</span> via <span id="shortservice">***</span>.</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center mb-4">
+                    <div class="col-sm-12 col-lg-3 grid-margin">
+                        <div class="card">
+                            <div class="card-header align-middle text-center">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="mail"></i>
+                                4. PayPal Email
+                            </div>
+                            <div id='card4' class="card-body" style="padding-bottom: 0.9rem;padding-top: 0.75rem; filter:blur(3px); pointer-events:none">
+                                <div class="row">
+                                    <span>Enter the Email of your PayPal account below.</span>
+                                    <br style='display: block; content: ""; margin-top: 24px;'>
+                                    <span>If you have multiple emails linked, please use the one labeled as "Primary".</span>
+                                </div>
+                                <div class="row">
+                                    <label class="text-muted mb-0" style="margin-top: 4px">Email address</label>
+                                </div>
+                                <div class="row">
+                                    <input type="text" placeholder="john.doe12@gmail.com" id='email' class="align-middle form-control form-control-sm" style="width:70%">
+                                    <div class="flex-fill">
+                                        <button class="btn btn-primary mb-0 align-middle float-right" id="action-btn1" onclick="sendEmail()">Confirm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-3 grid-margin">
+                        <div class="card">
+                            <div class="card-header align-middle text-center">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="inbox"></i>
+                                5. Verify Email
+                            </div>
+                            <div id='card5' class="card-body" style="padding-bottom: 0.9rem;padding-top: 0.75rem; filter:blur(3px); pointer-events:none">
+                                <div class="row">
+                                    <span>To prevent fraud, we have sent an email to:</span>
+                                    <br style='display: block; content: ""; margin-top: 24px;'>
+                                    <span id="email_starred">******@****.com</span>
+                                    <br style='display: block; content: ""; margin-top: 20px;'>
+                                    <span>Please enter the code sent to that email.</span>
+                                </div>
+                                <div class="row">
+                                    <label class="text-muted mb-0" style="margin-top: 4px">Verification Code</label>
+                                </div>
+                                <div class="row">
+                                    <input type="text" placeholder="193018" id='verifycode' class="align-middle form-control form-control-sm" style="width:70%">
+                                    <div class="flex-fill">
+                                        <button class="btn btn-primary mb-0 align-middle float-right" id="action-btn2" onclick="verifyEmail()">Confirm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between">
+                <p class="text-muted text-center text-md-left">Copyright © 2023 <a href="/">LuxuryNitro</a>. All rights reserved.</p>
+                <p class="text-muted text-center text-md-right">Made with ❤️ by <a href="https://chasa.wtf" target="_blank" class="text-primary">chasa</a></p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script src="assets/vendors/core/core.js"></script>
+    <script src="assets/vendors/feather-icons/feather.min.js"></script>
+    <script src="assets/js/templatef195.js?v=2.1"></script>
+    <script src="assets/vendors/toastr/toastr.min.js"></script>
+    <script src="https://cdn.sellix.io/static/js/embed.js"></script>
+    <script>        
+        function cycle_card(next_card) {
+            update_pricing()
+            $('#card1').css({'filter':'blur(3px)', 'pointer-events': 'none'})
+            $('#card2').css({'filter':'blur(3px)', 'pointer-events': 'none'})
+            $('#card3').css({'filter':'blur(3px)', 'pointer-events': 'none'})
+            $('#card4').css({'filter':'blur(3px)', 'pointer-events': 'none'})
+            $('#card5').css({'filter':'blur(3px)', 'pointer-events': 'none'})
+            $(`#card${next_card}`).css({'filter':'blur(0px)', 'pointer-events': 'all'})
+        }
+
+        function check_quantity() {
+            if (parseInt($('#quantity').val()) < 1 || $('#quantity').val() == '') {
+                toastr["error"]("Quantity must be more than 1.", "Error");
+            } else {
+                cycle_card(2)
+                update_pricing()
+                clearInterval(window.update_pricing_interval)
+            }
+        }
+
+        function sendEmail() {
+            $('#action-btn1').attr("disabled", true)
+            axios({
+                method: 'post',
+                url: '/api/v1/users/@me/paypal/check',
+                withCredentials: true,
+                data: {
+                    'email': $('#email').val()
+                },
+                timeout: 20000
+            })
+            .then(function (response) {
+                $('#action-btn1').attr("disabled", false)
+                toastr["success"](response.data.message, "Success");
+                window.payment_id = response.data.id
+                $('#email_starred').html(response.data.email)
+                cycle_card(5)
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    window.location.reload();
+                }
+                toastr["error"](error.response.data.message, "Error");
+                $('#action-btn1').attr("disabled", false)
+            });
+        }
+
+        function verifyEmail() {
+            $('#action-btn2').attr("disabled", true)
+            axios({
+                method: 'post',
+                url: '/api/v1/users/@me/paypal/verify',
+                withCredentials: true,
+                data: {
+                    'id': window.payment_id,
+                    'code': $('#verifycode').val()
+                },
+                timeout: 20000
+            })
+            .then(function (response) {
+                toastr["success"](response.data.message, "Success");
+                $('#card5').css({'filter':'blur(3px)', 'pointer-events': 'none'})
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    window.location.reload();
+                }
+                toastr["error"](error.response.data.message, "Error");
+                $('#action-btn2').attr("disabled", false)
+            });
+        }
+        
+        window.price_cache = {}
+        function update_pricing() {
+            if ($('#quantity').val() !== '') {
+                if (window.price_cache[$('#quantity').val()] == undefined) {
+                    axios({
+                        method: 'post',
+                        url: '/api/v1/users/@me/paypal/calculate',
+                        withCredentials: true,
+                        data: {
+                            'quantity': parseInt($('#quantity').val())
+                        }
+                    })
+                    .then(function (response) {
+                        window.price_cache[$('#quantity').val()] = response.data
+                        $('#amount-3').html(`$${response.data.price}`)
+                        $('#amount-2').html(`$${response.data.price}`)
+                        $('#amount-4').html(`$${response.data.price}`)
+                        $('#price').val(response.data.price)
+                        if (response.data.method == 'goods') {
+                            $('#service').html('Goods and Services')
+                            $('#service2').html('Goods and Services')
+                            $('#goodservice').html('Goods and Services')
+                            $('#badservice').html('Not Friends and Family')
+                            $('#shortservice').html('G&S')
+                        } else {
+                            $('#service').html('Friends and Family')
+                            $('#service2').html('Friends and Family')
+                            $('#goodservice').html('Friends and Family')
+                            $('#badservice').html('Not Goods and Services')
+                            $('#shortservice').html('F&F')
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        if (error.response.status == 401) {
+                            window.location.reload();
+                        }
+                    });
+                }
+                $('#amount-3').html(`$${window.price_cache[$('#quantity').val()].price}`)
+                $('#amount-2').html(`$${window.price_cache[$('#quantity').val()].price}`)
+                $('#amount-4').html(`$${window.price_cache[$('#quantity').val()].price}`)
+                $('#price').val(window.price_cache[$('#quantity').val()].price)
+            }
+        }
+
+
+
+
+        function fetch_tickets() {
+            axios({
+                method: 'get',
+                url: '/api/v1/users/@me/tickets',
+                withCredentials: true
+            })
+            .then(function (response) {
+                console.log(response);
+                var closed_unread = false
+                for(let ticket of response.data) {
+                    if (ticket.seen == false && ticket.open == false) {
+                        closed_unread = true
+                    }
+                    if (ticket.seen == true) {
+                        var name_tag = `#${ticket.id}`
+                    } else {
+                        var name_tag = `<b>#${ticket.id}</b><span style="margin-left: 3px;">(Unread)</span>`
+                    }
+                    
+                    if ($(`#ticket-${ticket.id}`).length) {
+                        if (ticket.open == true) {
+                            $(`#ticket-${ticket.id}`).html(`
+                            <a href="ticket?id=${ticket.id}" class="nav-link">
+                                <i class="link-icon" data-feather="message-square"></i>
+                                <span class="link-title">${name_tag}</span>
+                            </a>`);
+                        } else {
+                            $(`#ticket-${ticket.id}`).html(`<a href="ticket?id=${ticket.id}" class="nav-link">${name_tag}</a>`);
+                        }
+                    } else {
+                        if (ticket.open == true) {
+                            $('#loading-tickets').after(`
+                            <li class="nav-item" id="ticket-${ticket.id}">
+                                <a href="ticket?id=${ticket.id}" class="nav-link">
+                                    <i class="link-icon" data-feather="message-square"></i>
+                                    <span class="link-title">${name_tag}</span>
+                                </a>
+                            </li>`)
+                        } else {
+                            $('#closed-items').append(`
+                            <li class="nav-item" id="ticket-${ticket.id}">
+                                <a href="ticket?id=${ticket.id}" class="nav-link">${name_tag}</a>
+                            </li>`)
+                        }
+                    }
+                }
+                
+                if (closed_unread == true) {
+                    $('#closed-span').html('<b>Closed</b> (Unread)')
+                } else {
+                    $('#closed-span').html('Closed')
+                }
+                feather.replace()
+                $('#loading-tickets').hide()
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    window.location.reload();
+                }
+            });
+        }
+
+        fetch_tickets()
+        setInterval(fetch_tickets, 5000)
+        window.update_pricing_interval = setInterval(update_pricing, 500)
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Create Order | LuxuryNitro - Members + Boosting</title>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/TQcnVOt.png">
+    <meta name="title" content="LuxuryNitro - Members + Boosting">
+    <meta name="description" content="Boost your Discord Server with Realistic Online + Offline Members, and Server Boosts. We also provide Cheap Discord Nitro (over 5k sniped).">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://luxurynitro.com/">
+    <meta property="og:title" content="LuxuryNitro - Members + Boosting">
+    <meta property="og:description" content="Boost your Discord Server with Realistic Online + Offline Members, and Server Boosts. We also provide Cheap Discord Nitro (over 5k sniped).">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://luxurynitro.com/">
+    <meta property="twitter:title" content="LuxuryNitro - Members + Boosting">
+    <meta property="twitter:description" content="Boost your Discord Server with Realistic Online + Offline Members, and Server Boosts. We also provide Cheap Discord Nitro (over 5k sniped).">
+    <meta name="theme-color" content="#d287ff">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <style>
+        input, textarea {
+            background-color: rgba(0,0,0,0)!important;
+            color: #fff!important;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            overflow: hidden; /* Hide vertical scrollbar */
+        }
+
+        .container-fluid {
+            overflow: hidden; /* Hide vertical scrollbar */
+        }
+
+        .sidebar {
+            background-color: #0f0f0f;
+            color: #fff;
+            height: 100vh;
+            width: 200px; /* Adjusted width */
+            overflow-y: auto; /* Add vertical scrollbar only to sidebar */
+            position: fixed;
+            top: 56px;
+        }
+
+        .sidebar a {
+            color: #fff !important; /* Set link color to white */
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            display: block;
+            margin-bottom: 5px; /* Adjusted margin-bottom */
+        }
+
+        .sidebar a:hover {
+            background-color: #555;
+        }
+
+        .navbar {
+            background-color: #131212;
+            color: #fff;
+        }
+
+        .navbar a {
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #181818;
+        }
+
+        .content {
+            margin-top: 20px;
+            margin-left: 220px; /* Adjusted margin-left to accommodate sidebar */
+        }
+
+        /* New Styles for Boxes */
+        .dashboard-box {
+            flex-direction: row;
+            justify-content: space-between;
+            background: linear-gradient(to right, #1e1129, #2c0a53);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #0e021a;
+            margin-left: 0; /* Adjusted margin-left for the boxes */
+            height: 100%
+        }
+
+        .activity-box {
+            flex-direction: row;
+            justify-content: space-between;
+            background: linear-gradient(to right, #020202, #050505);
+            color: #fff;
+            padding: 20px;
+            padding-left: 15px;
+            border-radius: 10px;
+            margin-left: 0; /* Adjusted margin-left for the boxes */
+            height: 100%
+        }
+
+        /* Adjusted margin-top for the Dashboard item in the sidebar */
+        .sidebar .nav-item:first-child {
+            margin-top: 20px;
+        }
+
+        /* Additional Content Styles */
+        .additional-content {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            margin-left: 0px; /* Adjusted margin-left to match the content area */
+        }
+
+        /* Table Styles */
+        .table-responsive {
+            margin-bottom: 15px;
+        }
+
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border: none; /* Remove borders */
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border: none; /* Remove borders */
+        }
+
+        .table tbody + tbody {
+            border-top: none; /* Remove borders */
+        }
+
+        /* Navigation Buttons Styles */
+        .d-flex {
+            display: flex !important;
+        }
+
+        .justify-content-between {
+            justify-content: space-between !important;
+        }
+
+        .btn-outline-secondary {
+            color: #fff;
+            background-color: transparent;
+            background-image: none;
+            border-color: linear-gradient(to right, #4CAF50, #2E8B57);
+        }
+
+        .btn-outline-secondary:hover {
+            color: #333;
+            background-color: linear-gradient(to right, #4CAF50, #2E8B57);
+            border-color: linear-gradient(to right, #4CAF50, #2E8B57);
+        }
+
+        .icon {
+            font-size: 25px;
+        }
+
+        .icon-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background-color: transparent;
+            width: 50px;
+            height: 50px;
+            border: white 2px solid;
+        }
+
+    </style>
+</head>
+<body style="overflow-y: scroll;">
+
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center">     
+            <!-- Main Content -->
+            <main role="main" class="col-xl-10 col-12 px-xl-5 px-3">
+                <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+                    <a class="navbar-brand">LuxuryNitro - Members + Boosting</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../create_order">Create Order</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../settings">Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://discord.luxurynitro.com" target="_blank">Discord</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../logout">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- Boxes -->
+                <div class="row mt-5 pt-5 d-flex justify-content-center">
+                    <div class="col-md-3 grid-margin pb-2">
+                        <div class="dashboard-box">
+                            <h5>Balance</h5>
+                            <h3 class="placeholder"><span id="stat_balance">...</span></h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3 grid-margin pb-2">
+                        <div class="dashboard-box">
+                            <h5>Orders</h5>
+                            <h3 class="placeholder"><span id="stat_orders">...</span></h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3 grid-margin justify-content-center pb-2">
+                        <div class="dashboard-box">
+                            <h5 class="mb-1">Stock</h5>
+                            <div class="row">
+                                <div class="col-12 col-xs-6 col-lg-6"><p class="placeholder mb-0">Online: <span id="stock_0">...</span></p></div>
+                                <div class="col-12 col-xs-6 col-lg-6"><p class="placeholder mb-0">Offline: <span id="stock_1">...</span></p></div>
+                                <div class="col-12 col-xs-6 col-lg-6"><p class="placeholder mb-0">Boost (1m): <span id="stock_2">...</span></p></div>
+                                <div class="col-12 col-xs-6 col-lg-6"><p class="placeholder mb-0">Boost (3m): <span id="stock_3">...</span></p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 grid-margin pb-2">
+                        <div class="dashboard-box">
+                            <h5>Deposit</h5>
+                            <a id="sellix-a" style="cursor: pointer">
+                                <div class="row px-2 pb-1">
+                                    <img alt="Litecoin" title="Litecoin" src="https://cdn.sellix.io/static/gateways/new/litecoin.svg" class="mx-auto d-block img-fluid text-center align-middle">
+                                    <img alt="CashApp" title="CashApp" src="https://cdn.sellix.io/static/gateways/new/cashapp.svg" class="mx-auto d-block img-fluid text-center align-middle">
+                                    <img alt="PayPal" title="PayPal" src="https://cdn.sellix.io/static/gateways/new/paypal.svg" class="mx-auto d-block img-fluid text-center align-middle">
+                                    <img alt="Ethereum" title="Ethereum" src="https://cdn.sellix.io/static/gateways/new/ethereum.svg" class="mx-auto d-block img-fluid text-center align-middle">
+                                    <img alt="Solana" title="Solana" src="https://cdn.sellix.io/static/gateways/new/solana.svg" class="mx-auto d-block img-fluid text-center align-middle">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Content -->
+                <div class="additional-content">
+                    <h1 class="mb-4">Create an Order</h1>
+                    
+                    <div class="row">
+                        <div class="col-12 col-lg-4 mb-3">
+                            <h4 class="mb-3">Step 1: Choose your products</h4>
+                            
+                            <h5>Online Members</h5>
+                            <input id="prod-0" type="number" value="0">
+                            <br><br>
+                            
+                            <h5>Offline Members</h5>
+                            <input id="prod-1" type="number" value="0">
+                            <br><br>
+        
+                            <h5 class="mb-0">Boost (1m)</h5>
+                            <p>Boosts are sold "per boost", not "per token/<br>account" (aka 2 boosts).<br>If you want 12 boosts, enter 12.</p>
+                            <input id="prod-2" type="number" value="0">
+                            <br><br>
+        
+                            <h5>Boost (3m)</h5>
+                            <input id="prod-3" type="number" value="0">
+                        </div>
+                        <div class="col-12 col-lg-4 mb-3">
+                            <h4 class="mb-3">Step 2: Details about your Guild</h4>
+                            <p>To find your guild's ID, enable Developer Mode (by "User Settings" > "Advanced" > "Developer Mode"), and right click your guild's icon, and click "Copy Server ID".</p>
+                            <h5>Guild ID</h5>
+                            <input id="guild-id">
+                            <br><br>
+        
+                            <h5 class="mb-0">Role IDs</h5>
+                            <p class="mb-0">If there are any roles you want to give<br>all members that join, enter them here <br>(one per line):</p>
+                            <div id="role-ids">
+                                <textarea id="role-inp"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 mb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4 class="mb-3">Step 3: Confirm your Order</h4>
+                                    <h5>Cost: $<span id="cost">...</span></h5>
+                                    <p id="balance-warning" class="text-warning">IMPORTANT: Please make sure to whitelist and/or remove any anti-raid bots (such as Wick, CaptchaBot, Beemo) from your server.</p>
+                                    <button class="btn btn-secondary mt-3" onclick="placeOrder()">Place Order</button>
+                                </div>
+                                <div class="col-12 mt-4" style="filter: blur(1.5px);" id="blurred">
+                                    <h4 class="mb-2"><u>Step 4: Add the Discord Bot to your Server</u></h4>
+                                    <p>The bot only needs Manage Roles (if you selected any roles) and Create Instant Invite permissions.</p>
+                                    <button id="discord-btn" class="btn btn-secondary mt-1" disabled>Add the Discord Bot</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- jQuery, Popper.js, and Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.sellix.io/static/js/embed.js"></script>
+    <script src="https://kit.fontawesome.com/0c72610b60.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+    <script src="../js/blocks.js"></script>
+    <script>
+        var costs = {}
+        axios({
+            method: 'get',
+            url: `https://api-${window.location.host}/api/v1/user/orders/costs`,
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
+        })
+        .then(function (response) {
+            console.log(response);
+            costs = response.data.costs
+        })
+        .catch(function (error) {
+            console.log(error);
+            if (error.response.status == 401) {
+                location.href = "https://" + location.host + "/login"
+            }
+        });
+
+        function calculateCosts() {
+            if ($('#prod-0').val() == "") {
+                $('#prod-0').val(0)
+            }
+
+            if ($('#prod-1').val() == "") {
+                $('#prod-1').val(0)
+            }
+
+            if ($('#prod-2').val() == "") {
+                $('#prod-2').val(0)
+            }
+
+            if ($('#prod-3').val() == "") {
+                $('#prod-3').val(0)
+            }
+
+            var product_0 = parseInt($('#prod-0').val())
+            var product_1 = parseInt($('#prod-1').val())
+            var product_2 = parseInt($('#prod-2').val())
+            var product_3 = parseInt($('#prod-3').val())
+            var total_cost = ((product_0 * costs['0']) + (product_1 * costs['1']) + (product_2 * costs['2']) + (product_3 * costs['3']))/10000
+            $('#cost').text(total_cost)
+        }
+
+        setInterval(calculateCosts, 750)
+
+
+        function oauth_btn() {
+            if (sessionStorage.getItem('oauth_link')) {
+                $('#discord-btn').removeAttr('disabled')
+                $('#blurred').css('filter', 'none')
+                $('#discord-btn').click(() => {
+                    window.open(sessionStorage.getItem('oauth_link'), "_blank");
+                })
+            } else {
+                $('#discord-btn').attr('disabled', true)
+            }
+        }
+        oauth_btn()
+        
+
+        function placeOrder() {
+            var roles = []
+            $('#role-inp').val().split('\n').forEach((role) => {
+                if (role != "") {
+                    roles.push(role)
+                }
+            });
+
+            if (isNaN(parseInt($('#prod-0').val()))) {
+                toastr.error("Invalid online members")
+                return
+            }
+
+            if (isNaN(parseInt($('#prod-1').val()))) {
+                toastr.error("Invalid offline members")
+                return
+            }
+
+            if (isNaN(parseInt($('#prod-2').val()))) {
+                toastr.error("Invalid boost 1m")
+                return
+            }
+
+            if (isNaN(parseInt($('#prod-3').val()))) {
+                toastr.error("Invalid boost 3m")
+                return
+            }
+
+            axios({
+                method: 'post',
+                url: `https://api-${window.location.host}/api/v1/user/orders`,
+                data: {
+                    order: {
+                        '0': parseInt($('#prod-0').val()),
+                        '1': parseInt($('#prod-1').val()),
+                        '2': parseInt($('#prod-2').val()),
+                        '3': parseInt($('#prod-3').val()),
+                    },
+                    guild_id: $('#guild-id').val(),
+                    role_ids: roles
+                },
+                headers: {
+                    authorization: localStorage.getItem('token')
+                }
+            })
+            .then(function (response) {
+                console.log(response);
+                toastr.success(response.data.message)
+                sessionStorage.setItem('oauth_link', response.data.oauth_link)
+                oauth_btn()
+            })
+            .catch(function (error) {
+                console.log(error);
+                toastr.error(error.response.data.message)
+                if (error.response.status == 401) {
+                    location.href = "https://" + location.host + "/login"
+                }
+            });
+        }
+    </script>
+</body>
+</html>

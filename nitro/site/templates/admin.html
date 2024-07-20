@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LuxuryNitro - Admin</title>
+    <link rel="stylesheet" href="assets/vendors/core/core.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/fonts/feather-font/css/iconfont.css">
+    <link rel="stylesheet" href="assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="assets/vendors/toastr/toastr.min.css">
+    <link rel="icon" href="assets/img/logo.png" type="image/png" />
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="sidebar-brand">
+                    Luxury<span>Nitro</span>
+                </a>
+                <div class="sidebar-toggler not-active">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="sidebar-body">
+                <ul class="nav" style="padding-top: 10px">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <i class="link-icon" data-feather="layout"></i>
+                            <span class="link-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="purchase" class="nav-link">
+                            <i class="link-icon" data-feather="dollar-sign"></i>
+                            <span class="link-title">Purchase</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq" class="nav-link">
+                            <i class="link-icon" data-feather="help-circle"></i>
+                            <span class="link-title">FAQ</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item nav-category mb-3">
+                        Tickets
+                        <p class="text-muted" style="font-size: 10px;">Updates every 5s</p>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ticket-create" class="nav-link">
+                            <i class="link-icon" data-feather="plus-circle"></i>
+                            <span class="link-title">Create</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="loading-tickets">
+                        <a class="nav-link">
+                            <i class="link-icon" data-feather="loader"></i>
+                            <span class="link-title">Loading...</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#closed-dropdown" role="button" aria-expanded="false" aria-controls="emails">
+                            <i class="link-icon" data-feather="archive"></i>
+                            <span class="link-title" id="closed-span">Closed</span>
+                            <i class="link-arrow" data-feather="chevron-down"></i>
+                        </a>
+                        <div class="collapse" id="closed-dropdown">
+                            <ul class="nav sub-menu" id="closed-items">
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="page-wrapper">
+            <nav class="navbar">
+                <a href="#" class="sidebar-toggler">
+                    <i data-feather="menu"></i>
+                </a>
+                <div class="navbar-content">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="settings" title="Settings">
+                                <i class="link-arrow text-secondary" style="width: 20px;" data-feather="settings"></i>
+                            </a> 
+                        </li>
+                        <li class="nav-item">
+                            <a href="logout" title="Logout">
+                                <i class="link-arrow text-danger" style="width: 20px;" data-feather="log-out"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="page-content">
+                <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+                    <div class="mt-5">
+                        <h4 class="mb-3 mb-md-0">Admin</h4>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center mb-4">
+                    <div class="col-sm-12 col-lg-6 grid-margin">
+                        <div class="card">
+                            <div class="card-header align-middle">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="message-square"></i>
+                                Admin Box
+                            </div>
+                            <div class="card-body" style="padding-bottom: 0.9rem;padding-top: 0.55rem;">
+                                <div class="row mb-1">
+                                    <div id='chatscroll' style="height: 50vh; width: 100%; overflow-y: scroll;">
+                                        <div style="margin: 7px" id="chatbox"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row d-flex">
+                                    <div class="input-group">
+                                        <input id='message-box' type="text" class="flex-fill align-middle form-control form-control-sm" placeholder="/help">
+                                        <span class="input-group-btn">
+                                            <a onclick='sendMessage()' class="btn btn-primary align-middle bd-highlight" style="margin-left: 10px">
+                                                <i style="width: 14px; height: 14px;" data-feather="send"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>                              
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-6 grid-margin">
+                        <div class="col-12 grid-margin">
+                            <div class="card h-100">
+                                <div class="card-header align-middle">
+                                    <i class="mb-1 text-primary mr-2 icon-small" data-feather="clipboard"></i>
+                                    Order History
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive h-100" style="margin-top: -9px; height: 250px">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Order ID</th>
+                                                    <th>Status</th>
+                                                    <th>ETA until Completed</th>
+                                                    <th>Gifts</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="order-history">
+                                            </tbody>
+                                        </table>
+                                        <p id="order-history-info" class="text-muted text-center mt-2">Use /user to load data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 grid-margin">
+                            <div class="card">
+                                <div class="card-header align-middle">
+                                    <i class="mb-1 text-primary mr-2 icon-small" data-feather="clipboard"></i>
+                                    Credit History
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive" style="margin-top: -9px">
+                                        <table id="data-table" class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Time</th>
+                                                    <th>Credits</th>
+                                                    <th>Closing Balance</th>
+                                                    <th>Reason</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="credit-history">
+                                            </tbody>
+                                        </table>
+                                        <p id="credit-history-info" class="text-muted text-center mt-2">Use /user to load data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between">
+                <p class="text-muted text-center text-md-left">Copyright © 2023 <a href="/">LuxuryNitro</a>. All rights reserved.</p>
+                <p class="text-muted text-center text-md-right">Made with ❤️ by <a href="https://chasa.wtf" target="_blank" class="text-primary">chasa</a></p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script src="assets/vendors/core/core.js"></script>
+    <script src="assets/vendors/feather-icons/feather.min.js"></script>
+    <script src="assets/js/templatef195.js?v=2.1"></script>
+    <script src="assets/vendors/toastr/toastr.min.js"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script>
+        function wrapBold(text) {
+            var text = text.replaceAll('\n', '<br>')
+            const pattern = /\*\*(.*?)\*\*/g;
+            const matches = text.match(pattern);
+            if (matches === null) {
+                return text;
+            }
+            for (const match of matches) {
+                const boldText = '<b>' + match.slice(2, -2) + '</b>';
+                text = text.replace(match, boldText);
+            }
+
+            return text;
+        }
+
+        function formatTime(unixSeconds) {
+            var date = new Date(unixSeconds * 1000);
+
+            var hour = String(date.getHours());
+            var minute = String(date.getMinutes());
+            var second = String(date.getSeconds());
+
+            if (hour.length == 1) { hour = '0' + hour}
+            if (minute.length == 1) { minute = '0' + minute}
+            if (second.length == 1) { second = '0' + second}
+
+            var formattedDate = hour + ':' + minute + ':' + second;
+
+            return formattedDate;
+        }
+
+        function formatDate(unixSeconds) {
+            if (!unixSeconds) {
+                return "";
+            }
+            
+            var date = new Date(unixSeconds * 1000);
+
+            var day = ("0" + date.getDate()).slice(-2);
+            var month = date.toLocaleString("default", { month: "short" });
+            var year = date.getFullYear();
+            var hour = ("0" + date.getHours()).slice(-2);
+            var minute = ("0" + date.getMinutes()).slice(-2);
+            var second = ("0" + date.getSeconds()).slice(-2);
+
+            var formattedDate =
+                day + " " + month + " " + year + " " + hour + ":" + minute + ":" + second;
+
+            return formattedDate;
+        }
+
+        function convertHMS(value) {
+            if (value == undefined) {return ''}
+            const sec = parseInt(value, 10); // convert value to number if it's string
+            let hours   = Math.floor(sec / 3600); // get hours
+            let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
+            let seconds = sec - (hours * 3600) - (minutes * 60); //  get seconds
+            if (hours   > 0) {hours   = hours  +'hr '} else {hours   = ''}
+            if (minutes > 0) {minutes = minutes+'m ' } else {minutes = ''}
+            if (seconds > 0) {seconds = seconds+'s'  } else {
+                if (hours == 0 && minutes == 0) {
+                    seconds = seconds+'s'
+                } else {
+                    seconds = ''
+                }
+            }
+            return hours+minutes+seconds
+        }
+        
+        function GetURLParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) 
+            {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) 
+                {
+                    return sParameterName[1];
+                }
+            }
+        }
+        
+        window.ticket_id = GetURLParameter('id')
+
+        function scroll() {
+            var $container = $('#chatscroll');
+            var easing = jQuery.easing["easeInOutQuart"];
+            $container.animate({scrollTop: $container.prop("scrollHeight")}, 400, easing);
+        }
+
+        var status_ids = [
+            ['In Queue','text-warning'],
+            ['Claiming','text-primary'],
+            ['Completed','text-success'],
+        ]
+
+        function sendMessage() {
+            var message_content = $('#message-box').val()
+            $('#message-box').val('')
+            axios({
+                method: 'post',
+                url: `/api/v1/admin`,
+                withCredentials: true,
+                data: {
+                    command: message_content
+                }
+            })
+            .then(function (response) {
+                console.log(response);
+                var html_data = ''
+                for (let data of response.data.messages) {
+                    html_data += `<p><span style="color: #999999">${formatTime(data.time)} </span><span style="font-weight: 900;">${data.name}:</span> <span style="color: lightgrey;">${wrapBold(data.content)}</span></p>`
+                }
+                
+                $('#chatbox').html($('#chatbox').html() + html_data)
+                scroll()
+
+                if (response.data.orders !== null) {
+                    var orders_html = ''
+                    var completed_html = ''
+                    for(let order of response.data.orders) {
+                        if (order.status == 2) { // completed order
+                            try { delete orders[order.id] } catch {}
+                            completed_html += `<tr>
+                                <th>#${order.id}</th>
+                                <th class="${status_ids[order.status][1]}">${status_ids[order.status][0]}</th>
+                                <th></th>
+                                <th>${order.quantity}</th>
+                            </tr>`
+                        } else {
+                            orders_html += `<tr>
+                                <th>#${order.id}</th>
+                                <th class="${status_ids[order.status][1]}">${status_ids[order.status][0]} ${order.status_text}</th>
+                                <th>${convertHMS(order.eta.completed)}</th>
+                                <th>${order.quantity}</th>
+                            </tr>`
+                        }
+                    }
+                    $('#order-history').html(orders_html+completed_html)
+                    if (orders_html+completed_html !== '') {
+                        $('#order-history-info').hide()
+                    } else {
+                        $('#order-history-info').html('No orders found.').show()
+                    }
+                }
+                if (response.data.credits !== null) {
+                    var credits_html = ''
+                    for(let credit of response.data.credits.history) {
+                        if (credit.change > 0) { text_class = 'text-success' }
+                        else { text_class = 'text-danger'}
+                        
+                        credits_html += `<tr>
+                            <th>#${credit.id}</th>
+                            <th>${formatDate(credit.time)}</th>
+                            <th class="${text_class}">${credit.change}</th>
+                            <th>${credit.closing_balance} Credits</th>
+                            <th>${credit.reason}</th>
+                        </tr>`
+                    }
+                    
+                    $('#credit-history').html(credits_html)
+                    
+                    if (credits_html !== '') {
+                        $('#credit-history-info').hide()
+                    } else {
+                        $('#credit-history-info').html('No history found.').show()
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    window.location.reload();
+                }
+                toastr["error"](error.response.data.message, "Error");
+                $('#message-box').val(message_content)
+            });
+        }
+        
+        function fetch_tickets() {
+            axios({
+                method: 'get',
+                url: '/api/v1/users/@me/tickets',
+                withCredentials: true
+            })
+            .then(function (response) {
+                console.log(response);
+                var closed_unread = false
+                for(let ticket of response.data) {
+                    if (ticket.seen == false && ticket.open == false) {
+                        closed_unread = true
+                    }
+                    if (ticket.seen == true) {
+                        var name_tag = `#${ticket.id}`
+                    } else {
+                        var name_tag = `<b>#${ticket.id}</b><span style="margin-left: 3px;">(Unread)</span>`
+                    }
+                    
+                    if ($(`#ticket-${ticket.id}`).length) {
+                        if (ticket.open == true) {
+                            $(`#ticket-${ticket.id}`).html(`
+                            <a href="ticket?id=${ticket.id}" class="nav-link">
+                                <i class="link-icon" data-feather="message-square"></i>
+                                <span class="link-title">${name_tag}</span>
+                            </a>`);
+                        } else {
+                            $(`#ticket-${ticket.id}`).html(`<a href="ticket?id=${ticket.id}" class="nav-link">${name_tag}</a>`);
+                        }
+                    } else {
+                        if (ticket.open == true) {
+                            $('#loading-tickets').after(`
+                            <li class="nav-item" id="ticket-${ticket.id}">
+                                <a href="ticket?id=${ticket.id}" class="nav-link">
+                                    <i class="link-icon" data-feather="message-square"></i>
+                                    <span class="link-title">${name_tag}</span>
+                                </a>
+                            </li>`)
+                        } else {
+                            $('#closed-items').append(`
+                            <li class="nav-item" id="ticket-${ticket.id}">
+                                <a href="ticket?id=${ticket.id}" class="nav-link">${name_tag}</a>
+                            </li>`)
+                        }
+                    }
+                }
+                
+                if (closed_unread == true) {
+                    $('#closed-span').html('<b>Closed</b> (Unread)')
+                } else {
+                    $('#closed-span').html('Closed')
+                }
+                feather.replace()
+                $('#loading-tickets').hide()
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    window.location.reload();
+                }
+            });
+        }
+        fetch_tickets()
+        setInterval(fetch_tickets, 5000)
+    </script>
+</body>
+
+</html>

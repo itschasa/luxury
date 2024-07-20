@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LuxuryNitro - Ticket #</title>
+    <link rel="stylesheet" href="assets/vendors/core/core.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/fonts/feather-font/css/iconfont.css">
+    <link rel="stylesheet" href="assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="assets/vendors/toastr/toastr.min.css">
+    <link rel="icon" href="assets/img/logo.png" type="image/png" />
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="sidebar-brand">
+                    Luxury<span>Nitro</span>
+                </a>
+                <div class="sidebar-toggler not-active">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="sidebar-body">
+                <ul class="nav" style="padding-top: 10px">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <i class="link-icon" data-feather="layout"></i>
+                            <span class="link-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="purchase" class="nav-link">
+                            <i class="link-icon" data-feather="dollar-sign"></i>
+                            <span class="link-title">Purchase</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq" class="nav-link">
+                            <i class="link-icon" data-feather="help-circle"></i>
+                            <span class="link-title">FAQ</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item nav-category mb-3">
+                        Tickets
+                        <p class="text-muted" style="font-size: 10px;">Updates every 5s</p>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ticket-create" class="nav-link">
+                            <i class="link-icon" data-feather="plus-circle"></i>
+                            <span class="link-title">Create</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="loading-tickets">
+                        <a class="nav-link">
+                            <i class="link-icon" data-feather="loader"></i>
+                            <span class="link-title">Loading...</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#closed-dropdown" role="button" aria-expanded="false" aria-controls="emails">
+                            <i class="link-icon" data-feather="archive"></i>
+                            <span class="link-title" id="closed-span">Closed</span>
+                            <i class="link-arrow" data-feather="chevron-down"></i>
+                        </a>
+                        <div class="collapse" id="closed-dropdown">
+                            <ul class="nav sub-menu" id="closed-items">
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="page-wrapper">
+            <nav class="navbar">
+                <a href="#" class="sidebar-toggler">
+                    <i data-feather="menu"></i>
+                </a>
+                <div class="navbar-content">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="settings" title="Settings">
+                                <i class="link-arrow text-secondary" style="width: 20px;" data-feather="settings"></i>
+                            </a> 
+                        </li>
+                        <li class="nav-item">
+                            <a href="logout" title="Logout">
+                                <i class="link-arrow text-danger" style="width: 20px;" data-feather="log-out"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="page-content">
+                <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+                    <div class="mt-5">
+                        <h4 class="mb-3 mb-md-0">Ticket #<span id="ticket-id-placeholder"></span></h4>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center mb-4"> <!-- <div class="row d-md-block"> -->
+                    <div class="col-sm-12 col-lg-6 grid-margin">
+                        <div class="card">
+                            <div class="card-header align-middle">
+                                <i class="mb-1 text-primary mr-2 icon-small" data-feather="message-square"></i>
+                                Chat Box
+                            </div>
+                            <div class="card-body" style="padding-bottom: 0.9rem;padding-top: 0.55rem;">
+                                <div class="row mb-1">
+                                    <div id='chatscroll' style="height: 50vh; width: 100%; overflow-y: scroll;">
+                                        <div style="margin: 7px" id="chatbox"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div id='ticket-open' class="row d-flex" style="display: none!important;">
+                                    <div class="input-group">
+                                        <textarea maxlength="2000" id='message-box' type="text" class="flex-fill align-middle form-control form-control-sm" placeholder="Your message..." style="height:64px; line-height: 1.3;padding-top: 8px;"></textarea>
+                                        <span class="input-group-btn">
+                                            <a onclick='sendMessage()' class="btn btn-primary align-middle bd-highlight" style="margin-left: 10px">
+                                                <i style="width: 14px; height: 14px;" data-feather="send"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div id='ticket-closed' class="row d-flex" style="display: none!important;">
+                                    <div class="input-group">
+                                        <input type="text" class="flex-fill align-middle form-control form-control-sm" disabled value="This ticket has been closed.">
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between">
+                <p class="text-muted text-center text-md-left">Copyright © 2023 <a href="/">LuxuryNitro</a>. All rights reserved.</p>
+                <p class="text-muted text-center text-md-right">Made with ❤️ by <a href="https://chasa.wtf" target="_blank" class="text-primary">chasa</a></p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script src="assets/vendors/core/core.js"></script>
+    <script src="assets/vendors/feather-icons/feather.min.js"></script>
+    <script src="assets/js/templatef195.js?v=2.1"></script>
+    <script src="assets/vendors/toastr/toastr.min.js"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script>
+        function wrapBold(text) {
+            var text = text.replaceAll('\n', '<br>')
+            const pattern = /\*\*(.*?)\*\*/g;
+            const matches = text.match(pattern);
+            if (matches === null) {
+                return text;
+            }
+            for (const match of matches) {
+                const boldText = '<b>' + match.slice(2, -2) + '</b>';
+                text = text.replace(match, boldText);
+            }
+
+            return text;
+        }
+
+        function formatDate(unixSeconds) {
+            var date = new Date(unixSeconds * 1000);
+
+            var day = date.getDate();
+            var month = date.toLocaleString('default', { month: 'long' });
+            var year = date.getFullYear();
+
+            var formattedDate = day + ' ' + month + ' ' + year 
+
+            return formattedDate;
+        }
+
+        function formatTime(unixSeconds) {
+            var date = new Date(unixSeconds * 1000);
+
+            var hour = String(date.getHours());
+            var minute = String(date.getMinutes());
+            var second = String(date.getSeconds());
+
+            if (hour.length == 1) { hour = '0' + hour}
+            if (minute.length == 1) { minute = '0' + minute}
+            if (second.length == 1) { second = '0' + second}
+
+            var formattedDate = hour + ':' + minute + ':' + second;
+
+            return formattedDate;
+        }
+        
+        function GetURLParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) 
+            {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) 
+                {
+                    return sParameterName[1];
+                }
+            }
+        }
+        
+        window.ticket_id = GetURLParameter('id')
+        $('#ticket-id-placeholder').html(window.ticket_id)
+        document.title = `LuxuryNitro - Ticket #${window.ticket_id}`
+
+        ws_connect()
+        var ws_ping_interval = setInterval(ws_ping,2500);
+
+        function scroll() {
+            var $container = $('#chatscroll');
+            var easing = jQuery.easing["easeInOutQuart"];
+            $container.animate({scrollTop: $container.prop("scrollHeight")}, 400, easing);
+        }
+
+        function sendMessage() {
+            var message_content = $('#message-box').val()
+            $('#message-box').val('')
+            axios({
+                method: 'post',
+                url: `/api/v1/users/@me/tickets/${window.ticket_id}/message`,
+                withCredentials: true,
+                data: {
+                    content: message_content
+                }
+            })
+            .then(function (response) {
+                console.log(response);
+                try {$('#unread').hide()
+                $('#unread-p').hide()}
+                catch {}
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    window.location.reload();
+                }
+                toastr["error"](error.response.data.message, "Error");
+                $('#message-box').val(message_content)
+            });
+        }
+
+        function ws_connect() {
+            window.ws = new WebSocket(`${(location.protocol === 'https:') ? 'wss' : 'ws'}://${window.location.host}/api/v1/users/@me/tickets/websocket?id=${ticket_id}`);
+    
+            window.kill_ws = false
+
+            window.last_message_date = ''
+            
+            window.ws.onmessage = function (evt) { 
+                var received_data = JSON.parse(evt.data);
+                if (received_data.op == 'start') {
+                    if (received_data.open == true) {
+                        $('#ticket-open')[0].style = ''
+                    } else {
+                        $('#ticket-closed')[0].style = ''
+                    }
+                    
+                    var html_data = ''
+                    
+                    for(let event of received_data.data) {
+                        
+                        if (event.type == 0) {
+                            // message
+                            event.content = event.content.replaceAll('\n', '<br>')
+                            var message_date = formatDate(event.time)
+                            if (message_date != window.last_message_date) {
+                                html_data += `<div style="top: 50%; left: 0; right: 0; border-bottom: 2px solid rgb(72, 73, 80); margin-top: 10px;"></div>
+                                <p style="margin-top: -11px; text-shadow: -1px 1px 7px #0c1427, 1px 3px 7px #0c1427, 1px -1px 7px #0c1427, -1px -1px 7px #0c1427; color: #b2b2b5" class="text-center">${message_date}</p>`
+                                window.last_message_date = message_date
+                            }
+                            
+                            html_data += `<p><span style="color: #999999">${formatTime(event.time)} </span><span style="font-weight: 900;">${event.user.display_name}:</span> <span style="color: lightgrey;">${wrapBold(event.content)}</span></p>`
+
+                        } else if (event.type == 1) {
+                            html_data += `<div id='unread' style="top: 50%; left: 0; right: 0; border-bottom: 2px solid red; margin-top: 10px;"></div><p id="unread-p" style="margin-top: -11px; text-shadow: -1px 1px 7px #0c1427, 1px 3px 7px #0c1427, 1px -1px 7px #0c1427, -1px -1px 7px #0c1427;" class="text-center text-white">Unread Messages</p>`
+                        }
+                        $('#chatbox').html(html_data)
+                    }
+                    scroll()
+                
+                } else if (received_data.op == 'message') {
+                    received_data.data.content = received_data.data.content.replaceAll('\n', '<br>')
+                    var html_data = ''
+                    var message_date = formatDate(received_data.data.time)
+                    if (message_date != window.last_message_date) {
+                        html_data += `<div style="top: 50%; left: 0; right: 0; border-bottom: 2px solid rgb(72, 73, 80); margin-top: 10px;"></div>
+                        <p style="margin-top: -11px; text-shadow: -1px 1px 7px #0c1427, 1px 3px 7px #0c1427, 1px -1px 7px #0c1427, -1px -1px 7px #0c1427; color: #b2b2b5" class="text-center">${message_date}</p>`
+                        window.last_message_date = message_date
+                    }
+                    
+                    html_data += `<p><span style="color: #999999">${formatTime(received_data.data.time)} </span><span style="font-weight: 900;">${received_data.data.user.display_name}:</span> <span style="color: lightgrey;">${wrapBold(received_data.data.content)}</span></p>`
+                    
+                    $('#chatbox').html($('#chatbox').html() + html_data)
+                    scroll()
+
+                } else if (received_data.op == 'close') {
+                    window.kill_ws = true
+                    window.ws.close()
+                    window.location.href = window.location.href.split('ticket')[0] + received_data.endpoint
+                
+                } else if (received_data.op == 'update') {
+                    if (received_data.data.open == true) {
+                        $('#ticket-open')[0].style = ''
+                        $('#ticket-closed')[0].style = 'display: none!important'
+                    } else {
+                        $('#ticket-closed')[0].style = ''
+                        $('#ticket-open')[0].style = 'display: none!important'
+                    }
+                }
+            };
+            
+            window.ws.onclose = function() { 
+                setTimeout(function() {
+                    if (window.kill_ws != true) {
+                        ws_connect()
+                    }
+                }, 1000);
+            };
+            
+            
+        }
+        
+        function ws_ping() {
+            if (!window.ws) {
+                return
+            }
+            if (window.ws.readyState !== 1) {
+                return
+            }
+            window.ws.send(JSON.stringify({'op': 'ping'}))
+        }
+        
+        function fetch_tickets() {
+            axios({
+                method: 'get',
+                url: '/api/v1/users/@me/tickets',
+                withCredentials: true
+            })
+            .then(function (response) {
+                console.log(response);
+                var closed_unread = false
+                for(let ticket of response.data) {
+                    if (ticket.seen == false && ticket.open == false) {
+                        closed_unread = true
+                    }
+                    if (ticket.seen == true) {
+                        var name_tag = `#${ticket.id}`
+                    } else {
+                        var name_tag = `<b>#${ticket.id}</b><span style="margin-left: 3px;">(Unread)</span>`
+                    }
+                    
+                    if ($(`#ticket-${ticket.id}`).length) {
+                        if (ticket.open == true) {
+                            $(`#ticket-${ticket.id}`).html(`
+                            <a href="ticket?id=${ticket.id}" class="nav-link">
+                                <i class="link-icon" data-feather="message-square"></i>
+                                <span class="link-title">${name_tag}</span>
+                            </a>`);
+                        } else {
+                            $(`#ticket-${ticket.id}`).html(`<a href="ticket?id=${ticket.id}" class="nav-link">${name_tag}</a>`);
+                        }
+                    } else {
+                        if (ticket.open == true) {
+                            $('#loading-tickets').after(`
+                            <li class="nav-item" id="ticket-${ticket.id}">
+                                <a href="ticket?id=${ticket.id}" class="nav-link">
+                                    <i class="link-icon" data-feather="message-square"></i>
+                                    <span class="link-title">${name_tag}</span>
+                                </a>
+                            </li>`)
+                        } else {
+                            $('#closed-items').append(`
+                            <li class="nav-item" id="ticket-${ticket.id}">
+                                <a href="ticket?id=${ticket.id}" class="nav-link">${name_tag}</a>
+                            </li>`)
+                        }
+                    }
+                }
+                
+                if (closed_unread == true) {
+                    $('#closed-span').html('<b>Closed</b> (Unread)')
+                } else {
+                    $('#closed-span').html('Closed')
+                }
+                feather.replace()
+                $('#loading-tickets').hide()
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status == 401) {
+                    window.location.reload();
+                }
+            });
+        }
+        fetch_tickets()
+        setInterval(fetch_tickets, 5000)
+    </script>
+</body>
+
+</html>

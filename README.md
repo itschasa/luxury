@@ -8,7 +8,7 @@ If you have any questions, make an issue on this repo, or join my [Discord Serve
 
 These projects are not really designed to be "plug 'n' play". You can attempt to run them for yourself, however I will not be providing extensive support for it.
 
-Pull requests editing code will not be accepted. However, if you want to make a PR adding more documentation, please feel free.
+Pull requests editing code will not be accepted. However, if you want to make a PR adding more documentation or images, please feel free.
 
 
 ## Repos

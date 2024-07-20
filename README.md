@@ -13,13 +13,13 @@ Pull requests editing code will not be accepted. However, if you want to make a 
 
 ## Repos
 - `/nitro/` - Nitro Sniping Service (dash.luxurynitro.com)
-    - `/nitro/site/` - Website (Python, HTML, JS) ([README]())
-    - `/nitro/sniper/` - Sniper (Go) ([README]())
+    - `/nitro/site/` - Website (Python, HTML, JS) ([README](https://github.com/itschasa/luxury/blob/main/nitro/site/README.md))
+    - `/nitro/sniper/` - Sniper (Go) ([README](https://github.com/itschasa/luxury/blob/main/nitro/sniper/README.md))
         - `/nitro/sniper/auth_server/` - Authentication Server (Python) (was never used)
-- `/members/` - Boost + Fake Members Service (mem.luxurynitro.com) ([README]())
+- `/members/` - Boost + Fake Members Service (mem.luxurynitro.com) ([README](https://github.com/itschasa/luxury/blob/main/members/README.md))
     - `/members/public/` - Frontend Site (HTML, JS)
     - `/members/private/` - Backend (Python)
-- `/helper/` - AI Powerered Discord Chat Bot ([README]())
+- `/helper/` - AI Powerered Discord Chat Bot ([README](https://github.com/itschasa/luxury/blob/main/helper/README.md))
 
 The `/gallery/` folder contains images of the different projects in action.
 

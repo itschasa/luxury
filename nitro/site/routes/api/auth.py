@@ -1,5 +1,3 @@
-# suck@chasa.wtf : 1aPB7R!z9d$I
-
 from main import app, limiter
 import utils, config, mail, hasher
 import database

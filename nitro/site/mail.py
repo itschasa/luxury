@@ -1,4 +1,6 @@
 import httpx, threading
+import smtplib, ssl
+
 
 emailAddress = 'noreply.luxuryboosts@gmail.com'
 emailPassword = '***'
@@ -72,7 +74,13 @@ LuxuryNitro"""
 
 
 def sendthread(email, subject, content):
-    httpx.post('***', json={'data': [emailPassword, emailAddress, email, f"From: LuxuryNitro <{emailAddress}>\nTo: {email}\nSubject: {subject}\n\n{content}"]})
+    ssl_context = ssl.create_default_context()
+    service = smtplib.SMTP_SSL("smtp.gmail.com", 465, context=ssl_context)
+    service.login(emailAddress, emailPassword)
+    
+    service.sendmail(emailAddress, email, f"From: LuxuryNitro <{emailAddress}>\nTo: {email}\nSubject: {subject}\n\n{content}")
+    
+    service.quit()
 
 def send(email, subject, content):
     threading.Thread(target=sendthread, args=(email,subject,content,)).start()

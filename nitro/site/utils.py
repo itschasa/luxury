@@ -23,7 +23,7 @@ def admin_webhook(content):
 
     
 def check_token(token):
-    if not re.findall(token_regex):
+    if not re.findall(token_regex, token):
         return 'Invalid Token. (Regex)'
     
     headers = {

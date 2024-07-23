@@ -6,8 +6,32 @@ Well, it appears you'll stumble across some terrible code ahead. So, just a head
 ### HTML + CSS
 I used [proxiware](https://proxiware.com/)'s old dashboard as a template when making the site's front end.
 
-
 ---
+### Conecting the Sniper with the Web Server
+The sniper sends a HTTP request to the web server (endpoint: /api/v1/sniper) every few seconds, asking what token to use, etc, etc.
+
+So, to connect both together, you need to configure the correct URL in the sniper, and to make sure they have the same "auth token" (aka, a long random string).
+
+Setting this on the web server is done in `config.py:sniper_auth`.
+```py
+sniper_auth = 'your auth token here' # <-----
+```
+
+Setting this on the sniper is done inside the code, in `localapi.go:LuxAPIDoReq`.
+```go
+var request, requestErr = http.NewRequest("POST", "your url here", bytes.NewBuffer([]byte(data))) // <-----
+
+...
+
+request.Header = http.Header{
+    "Content-Type": {"application/json"},
+    "Connection": {"keep-alive"},
+    "Authorization": {"your auth token here"}, // <-----
+    "X-Instance-ID": {instance_id},
+}
+```
+
+
 ## Database
 I've added some example data in the `_schema.sql` as comments.
 

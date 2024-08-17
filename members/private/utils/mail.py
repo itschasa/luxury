@@ -92,4 +92,4 @@ def thread_mail():
         
 
 def send(email, subject, content):
-    email_queue.put([config().email.password, config().email.address, email, f"From: LuxuryNitro <{config().email.address}>\nTo: {email}\nSubject: {subject}\n\n{content}"])
+    email_queue.put([config().email.address, config().email.password, email, f"From: LuxuryNitro <{config().email.address}>\nTo: {email}\nSubject: {subject}\n\n{content}"])

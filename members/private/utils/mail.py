@@ -1,6 +1,7 @@
-import httpx
 from queue import Queue
 import logging
+import ssl
+import smtplib
 
 from config import config
 
@@ -10,7 +11,6 @@ log = logging.getLogger("backend")
 
 
 email_queue = Queue()
-email_client = httpx.Client(http2=True)
 
 register_subject = 'Verify your Email | LuxuryNitro - Member + Server Boosting'
 register_content = """Hey there,
@@ -73,9 +73,14 @@ def thread_mail():
         errors = []
         for _ in range(3):
             try:
-                req = email_client.post('***', json={'data': data})
-                req.raise_for_status()
-            except (httpx.HTTPError, httpx.HTTPStatusError) as e:
+                ssl_context = ssl.create_default_context()
+                service = smtplib.SMTP_SSL("smtp.gmail.com", 465, context=ssl_context)
+                service.login(data[0], data[1])
+                
+                service.sendmail(data[0], data[2], data[3])
+                
+                service.quit()
+            except Exception as e:
                 errors.append(e)
                 pass
             else:
